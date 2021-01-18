@@ -33,7 +33,6 @@ shape = SubResource( 1 )
 position = Vector2( 5, 4 )
 
 [node name="AI" type="Node2D" parent="."]
-visible = false
 position = Vector2( 4, 4 )
 script = ExtResource( 5 )
 

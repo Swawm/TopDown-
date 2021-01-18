@@ -44,6 +44,8 @@ func reload():
 func handle_hit() -> void:
 	health_stat.health -= 20
 	print ("Player hit!", health_stat.health)
+	if health_stat.health == 0:
+		queue_free()
 
 func get_team() -> int:
 	return team.team

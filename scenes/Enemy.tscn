@@ -11,7 +11,7 @@
 extents = Vector2( 4, 6 )
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 45.0942
+radius = 65.8624
 
 [node name="Enemy" type="KinematicBody2D" groups=[
 "Human_Enemies",
@@ -37,8 +37,8 @@ position = Vector2( 4, 4 )
 script = ExtResource( 5 )
 
 [node name="DetectionZone" type="Area2D" parent="AI"]
-visible = false
 position = Vector2( -1, -4 )
+scale = Vector2( 1.08, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AI/DetectionZone"]
 shape = SubResource( 2 )

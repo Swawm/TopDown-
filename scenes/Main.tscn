@@ -53,3 +53,12 @@ position = Vector2( 305.505, 327.789 )
 
 [node name="Ally3" parent="." instance=ExtResource( 5 )]
 position = Vector2( 447.021, 218.085 )
+
+[node name="Ally4" parent="." instance=ExtResource( 5 )]
+position = Vector2( 296.164, 205.48 )
+
+[node name="Ally5" parent="." instance=ExtResource( 5 )]
+position = Vector2( 263.461, 310.13 )
+
+[node name="Ally6" parent="." instance=ExtResource( 5 )]
+position = Vector2( 404.976, 200.426 )
