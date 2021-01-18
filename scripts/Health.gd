@@ -1,6 +1,6 @@
 extends Node2D
 
-export (int) var health = 100 setget set_health
+export (int) var health = 10 setget set_health
 
 
 func set_health(new_health: int):

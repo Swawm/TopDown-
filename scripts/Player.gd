@@ -9,6 +9,7 @@ export (int) var speed = 100
 
 onready var health_stat = $Health
 onready var weapon = $Weapon
+onready var team = $Team
 	
 func _physics_process(delta) -> void:
 	
@@ -34,8 +35,16 @@ func _physics_process(delta) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
 		weapon.shoot()
+	if event.is_action_pressed("reload"):
+		weapon.start_reload()
 
+func reload():
+	weapon.start_reload()
+	
 func handle_hit() -> void:
 	health_stat.health -= 20
 	print ("Player hit!", health_stat.health)
 
+func get_team() -> int:
+	return team.team
+	
