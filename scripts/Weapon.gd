@@ -35,14 +35,15 @@ func shoot():
 		current_ammo -= 1
 		if current_ammo == 0:
 			emit_signal("weapon_out_of_ammo")
-	if current_ammo == 0:
+	if current_ammo == 0 and attack_cooldown.is_stopped():
 		empty_shoot_sound.play()
 
 			
 		 
 func start_reload():
-	animation.play("reload")
-	reload_sound.play()
+	if !animation.is_playing():
+		animation.play("reload")
+		reload_sound.play()
 
 	
 func _stop_reload():
