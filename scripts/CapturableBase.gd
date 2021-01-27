@@ -1,4 +1,5 @@
 extends Area2D
+class_name CapturableBase
 
 signal base_captured(new_team)
 
@@ -41,16 +42,13 @@ func check_whether_base_can_be_captured():
 	var majority_team = get_team_with_majority()
 	
 	if majority_team == Team.TeamName.NEUTRAL:
-		print("no team in")
 		team_to_capture = Team.TeamName.NEUTRAL
 		capture_timer.stop()
 		return
 	elif majority_team == team.team:
-		print("aboba")
 		team_to_capture = Team.TeamName.NEUTRAL
 		capture_timer.stop()
 	else:
-		print("ebooka")
 		team_to_capture = majority_team
 		capture_timer.start()
 		

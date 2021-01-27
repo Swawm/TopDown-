@@ -1,4 +1,8 @@
 extends KinematicBody2D
+class_name Actor
+
+signal died 
+
 
 onready var health_stat = $Health
 onready var ai = $AI
@@ -14,7 +18,7 @@ func _ready():
 func handle_hit() -> void:
 	health_stat.health -= 20
 	if health_stat.health <=0:
-		queue_free()
+		die()
 	pass
 
 func rotate_toward(location: Vector2):
@@ -25,3 +29,10 @@ func velocity_toward(location: Vector2) -> Vector2:
 
 func get_team() -> int:
 	return team.team
+
+func has_reached_position(location: Vector2) -> bool:
+	return global_position.distance_to(location) < 5
+
+func die():
+	emit_signal("died")
+	queue_free()

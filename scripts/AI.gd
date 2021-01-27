@@ -1,19 +1,21 @@
 extends Node2D
+class_name AI
 
 signal state_changed(new_state)
 
 enum State {
 	PATROL, 
-	ENGAGE
+	ENGAGE,
+	ADVANCE
 }
 
 
 onready var patrol_timer = $PatrolTimer
 
-var current_state: int = -1 setget set_state
+var current_state: int = -1 setget set_state, get_state
 var target: KinematicBody2D = null
 var weapon: Weapon = null
-var actor: KinematicBody2D = null
+var actor: Actor = null
 var actor_velocity: Vector2 = Vector2.ZERO
 var team: int = -1 
 
@@ -23,18 +25,23 @@ var patrol_locaition: Vector2 = Vector2.ZERO
 var patrol_locaition_reached: bool = false
 
 
+var next_base: Vector2 = Vector2.ZERO
+
+
 func _ready():
 	set_state(State.PATROL)
+	print(get_state())
 	
 	
 	
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	match current_state:
 		State.PATROL:
 			if not patrol_locaition_reached:
+				actor_velocity = actor.velocity_toward(patrol_locaition)
 				actor.move_and_slide(actor_velocity)
 				actor.rotate_toward(patrol_locaition)
-				if actor.global_position.distance_to(patrol_locaition) < 5:
+				if actor.has_reached_position(patrol_locaition):
 					patrol_locaition_reached = true
 					actor_velocity = Vector2.ZERO
 					patrol_timer.start()
@@ -44,8 +51,17 @@ func _physics_process(delta):
 				var angle_to_player = actor.global_position.direction_to(target.global_position).angle()
 				if abs(actor.rotation - angle_to_player) < 0.1:
 					weapon.shoot()
+					if weapon.current_ammo == 0:
+						handle_reload()
 			else:
 				print("Error: no weapon or player exist")
+		State.ADVANCE:
+			if actor.has_reached_position(next_base):
+				set_state(State.PATROL)
+			else:
+				actor_velocity = actor.velocity_toward(next_base)
+				actor.move_and_slide(actor_velocity)
+				actor.rotate_toward(next_base)
 		_:
 			print("Error: found a state for our enemy that shouldnt exist")
 	pass
@@ -53,14 +69,17 @@ func _physics_process(delta):
 func set_state(new_state: int):
 	if new_state == current_state:
 		return 
-	current_state = new_state
-	emit_signal("state_changed", current_state)
-	
 	if new_state == State.PATROL:
 		origin = global_position
 		patrol_timer.start()
 		patrol_locaition_reached = true
 		
+	elif new_state == State.ADVANCE:
+		if actor.has_reached_position(next_base):
+			set_state(State.PATROL)
+			
+	current_state = new_state
+	emit_signal("state_changed", current_state)
 
 func initialize(actor: KinematicBody2D, weapon: Weapon, team: int):
 	self.actor = actor
@@ -75,7 +94,6 @@ func _on_PatrolTimer_timeout():
 	var random_y = rand_range(-patrol_range, patrol_range)
 	patrol_locaition = Vector2(random_x, random_y) + origin
 	patrol_locaition_reached = false
-	actor_velocity = actor.velocity_toward(patrol_locaition)
 
 
 
@@ -88,10 +106,12 @@ func _on_DetectionZone_body_entered(body):
 
 func _on_DetectionZone_body_exited(body):
 	if target and body == target:
-		set_state(State.PATROL)
+		set_state(State.ADVANCE)
 		target = null
 
 func handle_reload():
-	weapon.start_reload()
+	if weapon.current_ammo == 0:
+		weapon.start_reload()
 
-	
+func get_state():
+	return current_state
