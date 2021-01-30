@@ -8,7 +8,7 @@ export (int) var speed = 100
 
 
 onready var health_stat = $Health
-onready var weapon = $Weapon
+onready var weapon = $WeaponManager
 onready var team = $Team
 onready var remote_transform = $CameraTransform
 
@@ -34,19 +34,14 @@ func _physics_process(delta) -> void:
 
 	look_at(get_global_mouse_position())
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("shoot"):
-		weapon.shoot()
-	if event.is_action_pressed("reload"):
-		weapon.start_reload()
-
-
-
+func initialize():
+	weapon.initialize()
 	
 func handle_hit() -> void:
 	health_stat.health -= 20
 	if health_stat.health <= 0:
 		die()
+		pass
 		
 func get_team() -> int:
 	return team.team
