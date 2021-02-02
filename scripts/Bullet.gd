@@ -4,7 +4,7 @@ class_name Bullet
 export (int) var speed = 5
 
 var direction := Vector2.ZERO
-onready var kill_timer = $KillTimer
+onready var timer = $KillTimer
 
 func _physics_process(delta: float) -> void:
 	if direction != Vector2.ZERO:
@@ -20,7 +20,7 @@ func _on_KillTimer_timeout() -> void:
 	queue_free()
 
 func _ready() -> void:
-	kill_timer.start()
+	timer.start()
 
 
 func _on_Bullet_body_entered(body: Node) -> void:

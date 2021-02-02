@@ -8,6 +8,7 @@ export (PackedScene) var Bullet
 
 export (int) var max_ammo: int = 7
 export (bool) var automatic: bool = false
+export (float) var bullet_speed: int =  0 
 var current_ammo: int = max_ammo
 
 
@@ -29,7 +30,7 @@ func shoot():
 	if current_ammo !=0 and attack_cooldown.is_stopped() and Bullet != null and !animation.is_playing():
 		var bullet_instance = Bullet.instance()
 		var direction = (end_of_gun.global_position - global_position).normalized()
-		GlobalSignals.emit_signal("bullet_fired", bullet_instance, end_of_gun.global_position, direction)
+		GlobalSignals.emit_signal("bullet_fired", bullet_instance, end_of_gun.global_position, direction, bullet_speed)
 		attack_cooldown.start()
 		animation.play("muzzle_flash")
 		shoot_sound.play()

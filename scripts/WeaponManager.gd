@@ -33,6 +33,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		switch_weapon(weapons[0])
 	if event.is_action_pressed("weapon_2"):
 		switch_weapon(weapons[1])
+	if event.is_action_pressed("weapon_3"):
+		switch_weapon(weapons[2])
 
 func _process(delta):
 	if current_weapon.automatic and Input.is_action_pressed("shoot"):

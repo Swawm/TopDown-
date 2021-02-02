@@ -19,6 +19,7 @@ func _ready() -> void:
 	spawn_player()
 	
 	
+	
 func spawn_player():
 	var player = Player.instance()
 	add_child(player)
