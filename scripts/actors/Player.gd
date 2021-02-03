@@ -31,8 +31,10 @@ func _physics_process(delta) -> void:
 		anim.play("run")
 	if Input.is_action_pressed("run"):
 		speed = 200
+		anim.set_speed_scale(2)
 	else:
 		speed = 100
+		anim.set_speed_scale(1)
 
 	movement_direction = movement_direction.normalized()
 	move_and_slide(movement_direction * speed)
