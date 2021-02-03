@@ -8,9 +8,10 @@ export (int) var speed = 100
 
 
 onready var health_stat = $Health
-onready var weapon = $WeaponManager
+onready var weapon = $Weapon
 onready var team = $Team
 onready var remote_transform = $CameraTransform
+onready var anim = $AnimationPlayer
 
 
 func _physics_process(delta) -> void:
@@ -18,17 +19,21 @@ func _physics_process(delta) -> void:
 	var movement_direction := Vector2.ZERO
 	if Input.is_action_pressed("up"):
 		movement_direction.y = -1
+		anim.play("run")
 	if Input.is_action_pressed("left"):
 		movement_direction.x = -1
+		anim.play("run")
 	if Input.is_action_pressed("down"):
 		movement_direction.y = 1
+		anim.play("run")
 	if Input.is_action_pressed("right"):
 		movement_direction.x = 1
+		anim.play("run")
 	if Input.is_action_pressed("run"):
 		speed = 200
 	else:
 		speed = 100
- 
+
 	movement_direction = movement_direction.normalized()
 	move_and_slide(movement_direction * speed)
 

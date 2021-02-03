@@ -10,7 +10,6 @@ load_path = "res://.import/tilesheet_transparent.png-20ca08d577ceac759fbae5e4003
 load_path = "res://.import/towerDefense_tile298.png-60931315b5d4588360a7ea0b27dc05b6.stex"
 
 [node name="SMG" instance=ExtResource( 1 )]
-position = Vector2( 2, 0 )
 max_ammo = 25
 automatic = true
 bullet_speed = 5.0

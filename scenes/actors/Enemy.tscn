@@ -6,40 +6,13 @@
 [ext_resource path="res://scenes/actors/Team.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scripts/actors/AI.gd" type="Script" id=5]
 [ext_resource path="res://scenes/Health.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/HumanAnimations.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 6 )
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 110.19
-
-[sub_resource type="Animation" id=3]
-resource_name = "run"
-length = 0.7
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Weapon:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 0, 0, 0, 0, 0 ),
-"update": 0,
-"values": [ Vector2( 6, 6 ), Vector2( 6, 7 ), Vector2( 6, 6 ), Vector2( 6, 5 ), Vector2( 6, 4 ) ]
-}
 
 [node name="Enemy" type="KinematicBody2D" groups=[
 "Human_Enemies",
@@ -79,8 +52,7 @@ team = 1
 [node name="Weapon" parent="." instance=ExtResource( 1 )]
 position = Vector2( 6, 4 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/run = SubResource( 3 )
+[node name="AnimationPlayer" parent="." instance=ExtResource( 7 )]
 [connection signal="body_entered" from="AI/DetectionZone" to="AI" method="_on_DetectionZone_body_entered"]
 [connection signal="body_exited" from="AI/DetectionZone" to="AI" method="_on_DetectionZone_body_exited"]
 [connection signal="timeout" from="AI/PatrolTimer" to="AI" method="_on_PatrolTimer_timeout"]

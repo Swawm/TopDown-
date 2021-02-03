@@ -11,14 +11,13 @@ script = ExtResource( 3 )
 
 [node name="Pistol" parent="." instance=ExtResource( 6 )]
 visible = false
-position = Vector2( 5, 4 )
+position = Vector2( -1, 0 )
 
 [node name="SMG" parent="." instance=ExtResource( 5 )]
 visible = false
-position = Vector2( 6, 4 )
 
 [node name="BFG" parent="." instance=ExtResource( 1 )]
-position = Vector2( 6, 4 )
+visible = false
 
 [node name="ChangeSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )

@@ -19,8 +19,10 @@ region_rect = Rect2( 514, 279, 8, 3 )
 wait_time = 0.01
 
 [node name="MuzzleFlash" parent="." index="3"]
-visible = true
 position = Vector2( 5, -3.69482e-13 )
+
+[node name="Light2D" parent="MuzzleFlash" index="0"]
+visible = false
 
 [node name="ShootSound" parent="." index="5"]
 stream = ExtResource( 2 )
