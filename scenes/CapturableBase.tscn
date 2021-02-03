@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://scenes/Team.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/actors/Team.tscn" type="PackedScene" id=1]
 [ext_resource path="res://sprite/tilesheet_transparent.png" type="Texture" id=3]
 [ext_resource path="res://scripts/CapturableBase.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 63, 62 )
+extents = Vector2( 27, 26 )
 
 [node name="CapturableBase" type="Area2D"]
 script = ExtResource( 4 )

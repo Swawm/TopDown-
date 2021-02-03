@@ -10,7 +10,7 @@ enum BaseCaptureOrder{
 export (BaseCaptureOrder) var base_capture_start_order
 export (Team.TeamName) var team_name = Team.TeamName.NEUTRAL
 export (PackedScene) var unit = null 
-export (int) var max_units_alive = 4 
+export (int) var max_units_alive = 8 
 
 onready var team = $Team
 onready var unit_container = $UnitContainer
@@ -25,7 +25,7 @@ func initialize(capturable_bases: Array, respawn_points: Array):
 	if capturable_bases.size() == 0 or respawn_points.size() == 0 or unit == null:
 		push_error("lol ur fukd")
 		return
-	team.team = team.name
+	team.team = team_name
 	self.capturable_bases = capturable_bases
 	self.respawn_points = respawn_points
 	for respawn in respawn_points:
@@ -38,7 +38,6 @@ func initialize(capturable_bases: Array, respawn_points: Array):
 	
 func handle_base_captured(_new_team: int):
 	check_for_next_capturable_bases()
-	pass
 	
 
 func check_for_next_capturable_bases():	
@@ -54,7 +53,8 @@ func get_next_capturable_base():
 		
 	for i in list_of_bases:
 		var base: CapturableBase = capturable_bases[i]
-		if team.team != str(base.team.team):
+		if team.team != base.team.team:
+			print("Assigning team %d to capture base %d" % [team.team, i])
 			return base
 	
 	return null

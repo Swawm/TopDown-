@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://scenes/Weapon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/weapons/Weapon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://audio/smg.wav" type="AudioStream" id=2]
 
 [sub_resource type="StreamTexture" id=1]
@@ -11,7 +11,7 @@ load_path = "res://.import/towerDefense_tile298.png-60931315b5d4588360a7ea0b27dc
 
 [node name="SMG" instance=ExtResource( 1 )]
 position = Vector2( 2, 0 )
-max_ammo = 30
+max_ammo = 25
 automatic = true
 bullet_speed = 5.0
 

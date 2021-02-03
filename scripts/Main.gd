@@ -6,7 +6,7 @@ onready var ally_AI = $AllyMapAI
 onready var enemy_AI = $EnemyMapAI
 onready var camera = $Camera2D
 
-const Player = preload("res://scenes/Player.tscn")
+const Player = preload("res://scenes/actors/Player.tscn")
 
 func _ready() -> void:
 	randomize()

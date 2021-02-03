@@ -30,7 +30,6 @@ var next_base: Vector2 = Vector2.ZERO
 
 func _ready():
 	set_state(State.PATROL)
-	print(get_state())
 	
 	
 	

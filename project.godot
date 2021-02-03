@@ -12,17 +12,17 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "AI",
 "language": "GDScript",
-"path": "res://scripts/AI.gd"
+"path": "res://scripts/actors/AI.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Actor",
 "language": "GDScript",
-"path": "res://scripts/Actor.gd"
+"path": "res://scripts/actors/Actor.gd"
 }, {
 "base": "Area2D",
 "class": "Bullet",
 "language": "GDScript",
-"path": "res://scripts/Bullet.gd"
+"path": "res://scripts/weapons/Bullet.gd"
 }, {
 "base": "Area2D",
 "class": "CapturableBase",
@@ -32,17 +32,17 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
-"path": "res://scripts/Player.gd"
+"path": "res://scripts/actors/Player.gd"
 }, {
 "base": "Node2D",
 "class": "Team",
 "language": "GDScript",
-"path": "res://scripts/Team.gd"
+"path": "res://scripts/actors/Team.gd"
 }, {
 "base": "Node2D",
 "class": "Weapon",
 "language": "GDScript",
-"path": "res://scripts/Weapon.gd"
+"path": "res://scripts/weapons/Weapon.gd"
 } ]
 _global_script_class_icons={
 "AI": "",
@@ -107,8 +107,23 @@ reload={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":82,"unicode":0,"echo":false,"script":null)
  ]
 }
+weapon_1={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":49,"unicode":0,"echo":false,"script":null)
+ ]
+}
+weapon_2={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":50,"unicode":0,"echo":false,"script":null)
+ ]
+}
+weapon_3={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":51,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
+quality/2d/use_pixel_snap=true
 environment/default_environment="res://default_env.tres"

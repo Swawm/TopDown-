@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://scenes/Pistol.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scripts/Actor.gd" type="Script" id=2]
+[ext_resource path="res://scenes/weapons/BFG.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/actors/Actor.gd" type="Script" id=2]
 [ext_resource path="res://sprite/tilesheet_transparent.png" type="Texture" id=3]
-[ext_resource path="res://scenes/Team.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scripts/AI.gd" type="Script" id=5]
+[ext_resource path="res://scenes/actors/Team.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/actors/AI.gd" type="Script" id=5]
 [ext_resource path="res://scenes/Health.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -43,12 +43,13 @@ shape = SubResource( 2 )
 [node name="PatrolTimer" type="Timer" parent="AI"]
 wait_time = 3.0
 one_shot = true
+autostart = true
 
 [node name="Team" parent="." instance=ExtResource( 4 )]
 team = 0
 
 [node name="Weapon" parent="." instance=ExtResource( 1 )]
-position = Vector2( 6, 4 )
+position = Vector2( 7, 4 )
 [connection signal="body_entered" from="AI/DetectionZone" to="AI" method="_on_DetectionZone_body_entered"]
 [connection signal="body_exited" from="AI/DetectionZone" to="AI" method="_on_DetectionZone_body_exited"]
 [connection signal="timeout" from="AI/PatrolTimer" to="AI" method="_on_PatrolTimer_timeout"]

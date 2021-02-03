@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://sprite/towerDefense_tile298.png" type="Texture" id=1]
-[ext_resource path="res://scripts/Weapon.gd" type="Script" id=2]
+[ext_resource path="res://scripts/weapons/Weapon.gd" type="Script" id=2]
 [ext_resource path="res://sprite/tilesheet_transparent.png" type="Texture" id=3]
-[ext_resource path="res://scenes/Bullet.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/weapons/Bullet.tscn" type="PackedScene" id=4]
 [ext_resource path="res://audio/pistol.wav" type="AudioStream" id=5]
 [ext_resource path="res://audio/pistol_empty.wav" type="AudioStream" id=6]
 [ext_resource path="res://audio/pistol_reload.wav" type="AudioStream" id=7]
