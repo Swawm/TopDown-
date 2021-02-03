@@ -5,7 +5,7 @@
 [ext_resource path="res://scripts/CapturableBase.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 27, 26 )
+extents = Vector2( 43, 40 )
 
 [node name="CapturableBase" type="Area2D"]
 script = ExtResource( 4 )
@@ -19,7 +19,6 @@ region_enabled = true
 region_rect = Rect2( 394, 71, 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true

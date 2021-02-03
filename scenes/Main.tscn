@@ -608,25 +608,12 @@ script = ExtResource( 3 )
 visible = false
 position = Vector2( 251, 271 )
 
-[node name="Position2D" type="Position2D" parent="AllyRespawnPoints"]
-position = Vector2( -98, -46 )
-
-[node name="Position2D2" type="Position2D" parent="AllyRespawnPoints"]
-position = Vector2( -128, -28 )
-
-[node name="Position2D3" type="Position2D" parent="AllyRespawnPoints"]
-position = Vector2( -132, 9 )
-
-[node name="Position2D4" type="Position2D" parent="AllyRespawnPoints"]
-position = Vector2( -96, 49 )
-
 [node name="AllyMapAI" parent="." instance=ExtResource( 4 )]
 script = ExtResource( 10 )
 team_name = 0
 unit = ExtResource( 5 )
 
 [node name="EnemyRespawnPoints" type="Node2D" parent="."]
-visible = false
 position = Vector2( 251, 271 )
 
 [node name="Position2D5" type="Position2D" parent="EnemyRespawnPoints"]
@@ -641,23 +628,12 @@ position = Vector2( 453, 15 )
 [node name="Position2D8" type="Position2D" parent="EnemyRespawnPoints"]
 position = Vector2( 489, 55 )
 
-[node name="Position2D9" type="Position2D" parent="EnemyRespawnPoints"]
-position = Vector2( 772, -41 )
-
-[node name="Position2D10" type="Position2D" parent="EnemyRespawnPoints"]
-position = Vector2( 742, -23 )
-
-[node name="Position2D11" type="Position2D" parent="EnemyRespawnPoints"]
-position = Vector2( 738, 14 )
-
-[node name="Position2D12" type="Position2D" parent="EnemyRespawnPoints"]
-position = Vector2( 774, 54 )
-
 [node name="EnemyMapAI" parent="." instance=ExtResource( 4 )]
 script = ExtResource( 10 )
 base_capture_start_order = 1
 team_name = 1
 unit = ExtResource( 7 )
+max_units_alive = 256
 
 [node name="Buildings" type="TileMap" parent="."]
 tile_set = SubResource( 51 )

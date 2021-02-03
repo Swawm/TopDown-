@@ -21,6 +21,7 @@ onready var empty_shoot_sound = $EmptySound
 onready var reload_sound = $ReloadSound
 onready var muzzle = $MuzzleFlash
 
+
 func _ready():
 	muzzle.hide()
 	current_ammo = max_ammo

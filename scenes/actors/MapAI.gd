@@ -54,7 +54,6 @@ func get_next_capturable_base():
 	for i in list_of_bases:
 		var base: CapturableBase = capturable_bases[i]
 		if team.team != base.team.team:
-			print("Assigning team %d to capture base %d" % [team.team, i])
 			return base
 	
 	return null

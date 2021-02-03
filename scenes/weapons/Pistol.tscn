@@ -4,3 +4,6 @@
 
 [node name="Pistol" instance=ExtResource( 1 )]
 bullet_speed = 5.0
+
+[node name="MuzzleFlash" parent="." index="3"]
+visible = true

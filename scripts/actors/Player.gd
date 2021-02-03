@@ -40,7 +40,7 @@ func initialize():
 func handle_hit() -> void:
 	health_stat.health -= 20
 	if health_stat.health <= 0:
-		die()
+		#die()
 		pass
 		
 func get_team() -> int:
