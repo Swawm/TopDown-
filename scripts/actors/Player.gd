@@ -12,6 +12,7 @@ onready var weapon = $Weapon
 onready var team = $Team
 onready var remote_transform = $CameraTransform
 onready var anim = $AnimationPlayer
+onready var collision = $CollisionShape2D
 
 
 func _physics_process(delta) -> void:
@@ -47,7 +48,7 @@ func initialize():
 func handle_hit() -> void:
 	health_stat.health -= 20
 	if health_stat.health <= 0:
-		#die()
+		die()
 		pass
 		
 func get_team() -> int:

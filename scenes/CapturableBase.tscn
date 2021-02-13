@@ -19,6 +19,7 @@ region_enabled = true
 region_rect = Rect2( 394, 71, 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2( 1.5, 1.5 )
 shape = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true

@@ -15,6 +15,7 @@ var team_to_capture: int = Team.TeamName.NEUTRAL
 onready var team = $Team
 onready var capture_timer = $CaptureTimer
 onready var sprite = $Sprite
+onready var collision = $CollisionShape2D
 
 func _on_CapturableBase_body_entered(body):
 	if body.has_method("get_team"):
@@ -79,3 +80,13 @@ func set_team(new_team: int):
 
 func _on_CaptureTimer_timeout():
 	set_team(team_to_capture)
+	
+	
+func get_random_position_within_capture_radius():
+	var extents = collision.shape.extents
+	var top_left = collision.global_position - (extents / 2) 
+	var x = rand_range(top_left.x, top_left.x + extents.x)
+	var y = rand_range(top_left.y, top_left.y + extents.y)
+	
+	return Vector2(x,y)
+	

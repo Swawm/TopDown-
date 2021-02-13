@@ -20,12 +20,16 @@ var target_base: CapturableBase = null
 var capturable_bases: Array = []
 var respawn_points: Array = []
 var next_spawn_to_use: int = 0
+var pathfinding : Pathfinding
 
-func initialize(capturable_bases: Array, respawn_points: Array):
+func initialize(capturable_bases: Array, respawn_points: Array, pathfinding: Pathfinding):
 	if capturable_bases.size() == 0 or respawn_points.size() == 0 or unit == null:
 		push_error("lol ur fukd")
 		return
-	team.team = team.name
+	team.team = team_name
+	self.pathfinding = pathfinding
+	
+	
 	self.capturable_bases = capturable_bases
 	self.respawn_points = respawn_points
 	for respawn in respawn_points:
@@ -38,7 +42,6 @@ func initialize(capturable_bases: Array, respawn_points: Array):
 	
 func handle_base_captured(_new_team: int):
 	check_for_next_capturable_bases()
-	pass
 	
 
 func check_for_next_capturable_bases():	
@@ -54,7 +57,7 @@ func get_next_capturable_base():
 		
 	for i in list_of_bases:
 		var base: CapturableBase = capturable_bases[i]
-		if team.team != str(base.team.team):
+		if team.team != base.team.team:
 			return base
 	
 	return null
@@ -69,12 +72,13 @@ func spawn_unit(spawn_location: Vector2):
 	unit_container.add_child(unit_instance)
 	unit_instance.global_position = spawn_location
 	unit_instance.connect("died", self, "handle_unit_death")
+	unit_instance.ai.pathfinding = pathfinding
 	set_unit_ai_to_advance_to_next_base(unit_instance)
 
 func set_unit_ai_to_advance_to_next_base(unit: Actor):
 	if target_base != null:
 		var ai: AI = unit.ai
-		ai.next_base = target_base.global_position
+		ai.next_base = target_base.get_random_position_within_capture_radius()
 		ai.set_state(AI.State.ADVANCE)
 		
 func handle_unit_death():
