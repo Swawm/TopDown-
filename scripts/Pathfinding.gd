@@ -54,8 +54,8 @@ func connect_traversable_tiles(tiles: Array):
 func get_id_for_point(point: Vector2):
 	var x = point.x - used_rect.position.x
 	var y = point.y - used_rect.position.y
-	
-	return x + y * used_rect.size.x
+
+	return x + y * used_rect.size.x	
 
 func get_new_path(start: Vector2, end: Vector2) -> Array:
 	var start_tile = tilemap.world_to_map(start)
@@ -72,7 +72,7 @@ func get_new_path(start: Vector2, end: Vector2) -> Array:
 	
 	var path_world = []
 	for point in path_map:
-		var point_world = tilemap.world_to_map(point) + half_cell_size
+		var point_world = tilemap.map_to_world(point) + half_cell_size
 		path_world.append(point_world)
 		
 	return path_world

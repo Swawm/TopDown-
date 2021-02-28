@@ -4,7 +4,6 @@ signal weapon_changed
 
 onready var current_weapon: Weapon = $Pistol
 onready var sound = $ChangeSound
-
 var weapons: Array = []
 
 
