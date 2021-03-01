@@ -96,7 +96,6 @@ func set_state(new_state: int):
 
 
 func _on_PatrolTimer_timeout():
-	print("timeout")
 	var patrol_range = 50
 	var random_x = rand_range(-patrol_range, patrol_range)
 	var random_y = rand_range(-patrol_range, patrol_range)
