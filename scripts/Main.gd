@@ -26,9 +26,7 @@ func _ready() -> void:
 	
 	
 func spawn_player():
-	
 	var player = Player.instance()
-	print(player.get_children())
 	player.global_position = $PlayerSpawn.global_position
 	add_child(player)
 	player.set_camera_transform(camera.get_path())

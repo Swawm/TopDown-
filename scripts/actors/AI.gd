@@ -57,9 +57,9 @@ func _physics_process(delta: float) -> void:
 		State.ENGAGE:
 			if target != null and weapon != null:
 				actor.rotate_toward(target.global_position)
-				if abs(actor.global_position.angle_to(target.global_position)) < 0.1:
+				if abs(actor.global_position.angle_to(target.global_position)) <= 0.25:
 					weapon.shoot()
-					if weapon.current_ammo == 0:
+					if weapon.current_ammo == 0: 
 						handle_reload()
 			else:
 				print("Error: no weapon or player exist")
@@ -96,7 +96,6 @@ func set_state(new_state: int):
 
 
 func _on_PatrolTimer_timeout():
-	print("timeout")
 	var patrol_range = 50
 	var random_x = rand_range(-patrol_range, patrol_range)
 	var random_y = rand_range(-patrol_range, patrol_range)

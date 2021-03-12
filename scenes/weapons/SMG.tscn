@@ -2,11 +2,9 @@
 
 [ext_resource path="res://scenes/weapons/Weapon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://audio/smg.wav" type="AudioStream" id=2]
+[ext_resource path="res://sprite/smg.png" type="Texture" id=3]
 
 [sub_resource type="StreamTexture" id=1]
-load_path = "res://.import/tilesheet_transparent.png-20ca08d577ceac759fbae5e400320d5f.stex"
-
-[sub_resource type="StreamTexture" id=2]
 load_path = "res://.import/towerDefense_tile298.png-60931315b5d4588360a7ea0b27dc05b6.stex"
 
 [node name="SMG" instance=ExtResource( 1 )]
@@ -15,7 +13,9 @@ automatic = true
 bullet_speed = 5.0
 
 [node name="Sprite" parent="." index="0"]
-texture = SubResource( 1 )
+position = Vector2( 1, 0 )
+texture = ExtResource( 3 )
+region_enabled = false
 region_rect = Rect2( 514, 279, 8, 3 )
 
 [node name="AttackCooldown" parent="." index="2"]
@@ -24,10 +24,11 @@ wait_time = 0.1
 [node name="MuzzleFlash" parent="." index="3"]
 position = Vector2( 6, 0 )
 scale = Vector2( 0.0657366, 0.084232 )
-texture = SubResource( 2 )
+texture = SubResource( 1 )
 
 [node name="Light2D" parent="MuzzleFlash" index="0"]
 texture_scale = 0.8
 
 [node name="ShootSound" parent="." index="5"]
 stream = ExtResource( 2 )
+max_distance = 1000.0

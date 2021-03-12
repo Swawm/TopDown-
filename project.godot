@@ -48,6 +48,11 @@ _global_script_classes=[ {
 "class": "Weapon",
 "language": "GDScript",
 "path": "res://scripts/weapons/Weapon.gd"
+}, {
+"base": "Node2D",
+"class": "WeaponManager",
+"language": "GDScript",
+"path": "res://scripts/weapons/WeaponManager.gd"
 } ]
 _global_script_class_icons={
 "AI": "",
@@ -57,7 +62,8 @@ _global_script_class_icons={
 "Pathfinding": "",
 "Player": "",
 "Team": "",
-"Weapon": ""
+"Weapon": "",
+"WeaponManager": ""
 }
 
 [application]
@@ -65,6 +71,10 @@ _global_script_class_icons={
 config/name="Top Down"
 run/main_scene="res://scenes/Main.tscn"
 config/icon="res://icon.png"
+
+[audio]
+
+default_bus_layout=""
 
 [autoload]
 
