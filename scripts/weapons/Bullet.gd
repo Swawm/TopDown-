@@ -25,5 +25,17 @@ func _ready() -> void:
 
 func _on_Bullet_body_entered(body: Node) -> void:
 	if body.has_method("handle_hit"):
+		$hit_flesh.play()
+		$Sprite.set_visible(false)
+		$blood_particle.set_emitting(true)
+		yield($hit_flesh, "finished")
 		body.handle_hit()
+	else:
+		speed = 0
+		$Sprite.set_visible(false)
+		$wall_particle.set_emitting(true)
+		$hit_wall.play()
+		yield ($hit_wall, "finished")
 	queue_free()
+	
+

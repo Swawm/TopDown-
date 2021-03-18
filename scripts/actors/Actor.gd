@@ -20,7 +20,7 @@ func _ready():
 func handle_hit() -> void:
 	health_stat.health -= 20
 	if health_stat.health <=0:
-		$AudioStreamPlayer2D.play()
+		die()
 	pass
 
 func rotate_toward(location: Vector2):
@@ -41,7 +41,3 @@ func has_reached_position(location: Vector2) -> bool:
 func die():
 	emit_signal("died")
 	queue_free()
-
-
-func _on_AudioStreamPlayer2D_finished():
-	die()
