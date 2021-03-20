@@ -28,7 +28,7 @@ func _on_Bullet_body_entered(body: Node) -> void:
 		$hit_flesh.play()
 		$Sprite.set_visible(false)
 		$blood_particle.set_emitting(true)
-		yield($hit_flesh, "finished")
+		#yield($hit_flesh, "finished")
 		body.handle_hit()
 	else:
 		speed = 0
@@ -39,3 +39,4 @@ func _on_Bullet_body_entered(body: Node) -> void:
 	queue_free()
 	
 
+	

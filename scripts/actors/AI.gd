@@ -3,10 +3,12 @@ class_name AI
 
 signal state_changed(new_state)
 
+
 enum State {
 	PATROL, 
 	ENGAGE,
 	ADVANCE,
+	DEAD,
 }
 
 
@@ -74,6 +76,9 @@ func _physics_process(delta: float) -> void:
 				set_state(State.PATROL)
 			if target != null and weapon != null:
 				set_state(State.ENGAGE)
+		State.DEAD:
+			set_physics_process(false)
+			return
 		_:
 			print("Error: found a state for our enemy that shouldnt exist")
 	pass
@@ -89,7 +94,6 @@ func set_state(new_state: int):
 		actor.anim.play("run")
 		if actor.has_reached_position(next_base):
 			set_state(State.PATROL)
-			
 	current_state = new_state
 	emit_signal("state_changed", current_state)
 
@@ -125,3 +129,10 @@ func get_state():
 
 func attack_enemy():
 	pass
+	
+
+func die():
+	set_state(State.DEAD)
+	actor.collision.set_disabled(true)
+	actor.team.set_team(Team.TeamName.DEAD)
+

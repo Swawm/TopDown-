@@ -62,7 +62,7 @@ team = 0
 [node name="CameraTransform" type="RemoteTransform2D" parent="."]
 
 [node name="Weapon" parent="." instance=ExtResource( 3 )]
-position = Vector2( 6, 5 )
+position = Vector2( 4, 5 )
 
 [node name="AnimationPlayer" parent="." instance=ExtResource( 6 )]
 "anims/run (fast)" = SubResource( 2 )

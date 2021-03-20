@@ -23,7 +23,9 @@ script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 3 )
+vframes = 2
 hframes = 7
+frame = 7
 region_rect = Rect2( 478, 138, 9, 12 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -33,6 +35,7 @@ shape = SubResource( 1 )
 [node name="Health" parent="." instance=ExtResource( 6 )]
 
 [node name="AI" type="Node2D" parent="."]
+visible = false
 position = Vector2( 4, 4 )
 script = ExtResource( 5 )
 
@@ -50,14 +53,13 @@ autostart = true
 [node name="Team" parent="." instance=ExtResource( 4 )]
 team = 0
 
+[node name="Weapon" parent="." instance=ExtResource( 1 )]
+position = Vector2( 6, 4 )
+
 [node name="AnimationPlayer" parent="." instance=ExtResource( 7 )]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 8 )
-
-[node name="Weapon" parent="." instance=ExtResource( 1 )]
-position = Vector2( 11, 4 )
 [connection signal="body_entered" from="AI/DetectionZone" to="AI" method="_on_DetectionZone_body_entered"]
 [connection signal="body_exited" from="AI/DetectionZone" to="AI" method="_on_DetectionZone_body_exited"]
 [connection signal="timeout" from="AI/PatrolTimer" to="AI" method="_on_PatrolTimer_timeout"]
-[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_AudioStreamPlayer2D_finished"]
