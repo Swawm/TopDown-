@@ -77,7 +77,7 @@ func _physics_process(delta: float) -> void:
 			if target != null and weapon != null:
 				set_state(State.ENGAGE)
 		State.DEAD:
-			set_physics_process(false)
+			print("I am dead")
 			return
 		_:
 			print("Error: found a state for our enemy that shouldnt exist")
@@ -135,4 +135,5 @@ func die():
 	set_state(State.DEAD)
 	actor.collision.set_disabled(true)
 	actor.team.set_team(Team.TeamName.DEAD)
-
+	actor.set_z_index(-2)
+	set_physics_process(false)

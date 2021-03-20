@@ -10,6 +10,7 @@ onready var weapon = $Weapon
 onready var team = $Team
 onready var anim = $AnimationPlayer
 onready var collision = $CollisionShape2D
+onready var sprite = $Sprite
 
 export (int) var speed = 100
 

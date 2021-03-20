@@ -587,6 +587,7 @@ zoom = Vector2( 0.4, 0.4 )
 smoothing_enabled = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color( 0.176471, 0.14902, 0.14902, 1 )
 
 [node name="CapturableBaseManager" type="Node2D" parent="."]
@@ -634,33 +635,16 @@ position = Vector2( -221, 37 )
 [node name="AllyMapAI" parent="." instance=ExtResource( 4 )]
 team_name = 0
 unit = ExtResource( 5 )
+max_units_alive = 64
 
 [node name="EnemyRespawnPoints" type="Node2D" parent="."]
 position = Vector2( 251, 271 )
-
-[node name="Position2D5" type="Position2D" parent="EnemyRespawnPoints"]
-position = Vector2( 555, -42 )
 
 [node name="Position2D6" type="Position2D" parent="EnemyRespawnPoints"]
 position = Vector2( 525, -24 )
 
 [node name="Position2D7" type="Position2D" parent="EnemyRespawnPoints"]
 position = Vector2( 521, 13 )
-
-[node name="Position2D8" type="Position2D" parent="EnemyRespawnPoints"]
-position = Vector2( 557, 53 )
-
-[node name="Position2D9" type="Position2D" parent="EnemyRespawnPoints"]
-position = Vector2( 660, -47 )
-
-[node name="Position2D10" type="Position2D" parent="EnemyRespawnPoints"]
-position = Vector2( 630, -29 )
-
-[node name="Position2D11" type="Position2D" parent="EnemyRespawnPoints"]
-position = Vector2( 626, 8 )
-
-[node name="Position2D12" type="Position2D" parent="EnemyRespawnPoints"]
-position = Vector2( 662, 48 )
 
 [node name="Position2D13" type="Position2D" parent="EnemyRespawnPoints"]
 position = Vector2( 501, -36 )
@@ -674,23 +658,11 @@ position = Vector2( 467, 19 )
 [node name="Position2D16" type="Position2D" parent="EnemyRespawnPoints"]
 position = Vector2( 503, 59 )
 
-[node name="Position2D17" type="Position2D" parent="EnemyRespawnPoints"]
-position = Vector2( 606, -41 )
-
-[node name="Position2D18" type="Position2D" parent="EnemyRespawnPoints"]
-position = Vector2( 576, -23 )
-
-[node name="Position2D19" type="Position2D" parent="EnemyRespawnPoints"]
-position = Vector2( 572, 14 )
-
-[node name="Position2D20" type="Position2D" parent="EnemyRespawnPoints"]
-position = Vector2( 608, 54 )
-
 [node name="EnemyMapAI" parent="." instance=ExtResource( 4 )]
 base_capture_start_order = 1
 team_name = 1
 unit = ExtResource( 7 )
-max_units_alive = 256
+max_units_alive = 64
 
 [node name="Buildings" type="TileMap" parent="." groups=[
 "obstacles",
