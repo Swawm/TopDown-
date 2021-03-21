@@ -15,7 +15,7 @@ extents = Vector2( 4, 6 )
 [sub_resource type="CircleShape2D" id=2]
 radius = 118.017
 
-[node name="Ally" type="KinematicBody2D" groups=[
+[node name="Human" type="KinematicBody2D" groups=[
 "Human_Enemies",
 "obstacles",
 ]]
@@ -51,7 +51,6 @@ one_shot = true
 autostart = true
 
 [node name="Team" parent="." instance=ExtResource( 4 )]
-team = 0
 
 [node name="Weapon" parent="." instance=ExtResource( 1 )]
 position = Vector2( 6, 4 )

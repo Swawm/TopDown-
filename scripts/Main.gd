@@ -9,7 +9,7 @@ onready var ground = $Ground
 onready var pathfinding = $Pathfinding
 onready var gui = $GUI
 
-const Player = preload("res://scenes/actors/Player.tscn")
+const Player = preload("res://scenes/actors/humans/Player.tscn")
 
 func _ready() -> void:
 	randomize()

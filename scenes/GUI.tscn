@@ -92,22 +92,23 @@ percent_visible = false
 
 [node name="Ammo Section" type="HBoxContainer" parent="MarginContainer/Rows/BottomRow"]
 margin_left = 204.0
-margin_right = 878.0
+margin_right = 855.0
 margin_bottom = 45.0
 size_flags_horizontal = 3
 
 [node name="CurrentAmmo" type="Label" parent="MarginContainer/Rows/BottomRow"]
-margin_left = 882.0
-margin_right = 905.0
+margin_left = 859.0
+margin_right = 882.0
 margin_bottom = 45.0
 custom_fonts/font = SubResource( 3 )
 text = "7"
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/Rows/BottomRow"]
-margin_left = 909.0
+[node name="slash" type="Label" parent="MarginContainer/Rows/BottomRow"]
+margin_left = 886.0
 margin_right = 913.0
 margin_bottom = 45.0
-mouse_filter = 2
+custom_fonts/font = SubResource( 3 )
+text = "/"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/Rows/BottomRow"]
 margin_left = 917.0

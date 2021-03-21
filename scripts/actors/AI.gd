@@ -137,5 +137,5 @@ func die():
 	set_state(State.DEAD)
 	actor.collision.set_disabled(true)
 	actor.team.set_team(Team.TeamName.DEAD)
-	actor.set_z_index(-2)
+	actor.set_z_index(-1)
 	set_physics_process(false)
