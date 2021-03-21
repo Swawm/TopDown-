@@ -23,6 +23,7 @@ func _ready() -> void:
 	ally_AI.initialize(bases, ally_respawns.get_children(), pathfinding)
 	enemy_AI.initialize(bases, enemy_respawns.get_children(), pathfinding)
 	spawn_player()
+	debug()
 	
 	
 	
@@ -34,4 +35,7 @@ func spawn_player():
 	player.connect("died", self, "spawn_player")
 	gui.set_player(player)
 	
-
+func debug():
+	var overlay = load("res://scenes/debug_overlay.tscn").instance()
+	overlay.add_stat("FPS", Engine, "get_frames_per_second", true )
+	add_child(overlay)

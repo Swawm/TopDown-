@@ -1,5 +1,5 @@
  extends Node2D
-
+class_name Map_AI
 
 enum BaseCaptureOrder{
 	FIRST,
@@ -12,7 +12,7 @@ enum BaseCaptureOrder{
 export (BaseCaptureOrder) var base_capture_start_order
 export (Team.TeamName) var team_name = Team.TeamName.NEUTRAL
 export (PackedScene) var unit = null 
-export (int) var max_units_alive = 8 
+export (int) var max_units_alive = 250 
 
 onready var team = $Team
 onready var unit_container = $UnitContainer

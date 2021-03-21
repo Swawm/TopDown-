@@ -30,6 +30,11 @@ _global_script_classes=[ {
 "path": "res://scripts/CapturableBase.gd"
 }, {
 "base": "Node2D",
+"class": "Map_AI",
+"language": "GDScript",
+"path": "res://scripts/actors/MapAI.gd"
+}, {
+"base": "Node2D",
 "class": "Pathfinding",
 "language": "GDScript",
 "path": "res://scripts/Pathfinding.gd"
@@ -59,6 +64,7 @@ _global_script_class_icons={
 "Actor": "",
 "Bullet": "",
 "CapturableBase": "",
+"Map_AI": "",
 "Pathfinding": "",
 "Player": "",
 "Team": "",
