@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/weapons/Pistol.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/actors/humans/Human.tscn" type="PackedScene" id=2]
+[ext_resource path="res://sprite/enemy.png" type="Texture" id=3]
+
+[node name="Enemy" instance=ExtResource( 2 )]
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 3 )
+frame = 6
+
+[node name="Team" parent="." index="4"]
+team = 1
+
+[node name="Weapon" parent="." index="7" instance=ExtResource( 1 )]
+position = Vector2( 8, 3 )

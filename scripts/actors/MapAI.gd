@@ -7,6 +7,8 @@ enum BaseCaptureOrder{
 	
 }
 
+
+
 export (BaseCaptureOrder) var base_capture_start_order
 export (Team.TeamName) var team_name = Team.TeamName.NEUTRAL
 export (PackedScene) var unit = null 
