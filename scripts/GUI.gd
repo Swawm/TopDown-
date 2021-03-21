@@ -11,13 +11,13 @@ func set_player(player):
 	self.player = player
 	set_new_health_value(player.health_stat.health)
 	player.connect("player_health_changed", self, "set_new_health_value")
+	player.weapon.connect("weapon_changed", self, "set_gun")
 	set_gun(player.weapon.get_current_weapon())
 
 
-func set_gun(weapon: Weapon):
+func set_gun(_weapon: Weapon):
 	set_current_ammo_value(player.weapon.current_weapon.current_ammo)
 	set_total_ammo_value(player.weapon.current_weapon.max_ammo)
-	player.weapon.connect("weapon_changed", self, "set_gun")
 	player.weapon.current_weapon.connect("weapon_ammo_changed", self, "set_current_ammo_value")
 		
 
