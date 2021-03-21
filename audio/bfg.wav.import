@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bfg.wav-101bb45f57bb3d61c52e70931e84d252.sample"
+
+[deps]
+
+source_file="res://audio/bfg.wav"
+dest_files=[ "res://.import/bfg.wav-101bb45f57bb3d61c52e70931e84d252.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
