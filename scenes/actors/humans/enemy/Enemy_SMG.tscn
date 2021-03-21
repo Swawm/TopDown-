@@ -13,5 +13,8 @@ frame = 6
 [node name="Team" parent="." index="4"]
 team = 1
 
+[node name="AudioStreamPlayer2D" parent="." index="6"]
+volume_db = -10.0
+
 [node name="Weapon" parent="." index="7" instance=ExtResource( 1 )]
 position = Vector2( 8, 3 )
