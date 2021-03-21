@@ -2,6 +2,7 @@ extends KinematicBody2D
 class_name Player
 
 signal died 
+signal player_health_changed(new_health)
 
 export (int) var speed = 100
 
@@ -12,7 +13,7 @@ onready var weapon = $Weapon
 onready var team = $Team
 onready var remote_transform = $CameraTransform
 onready var anim = $AnimationPlayer
-onready var collision = $CollisionShape2D
+onready var collision = $CollisionShape2D		
 
 
 func _physics_process(delta) -> void:
@@ -47,6 +48,7 @@ func initialize():
 	
 func handle_hit() -> void:
 	health_stat.health -= 20
+	emit_signal("player_health_changed", health_stat.health)
 	if health_stat.health <= 0:
 		die()
 		pass

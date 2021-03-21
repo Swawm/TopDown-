@@ -7,12 +7,13 @@
 bullet_speed = 5.0
 
 [node name="Sprite" parent="." index="0"]
-position = Vector2( -0.8125, 0 )
+position = Vector2( -2, 0 )
 texture = ExtResource( 2 )
 region_enabled = false
 
 [node name="MuzzleFlash" parent="." index="3"]
 visible = true
+scale = Vector2( 0.1, 0.1 )
 
 [node name="Light2D" parent="MuzzleFlash" index="0"]
 position = Vector2( 0, 0 )

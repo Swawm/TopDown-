@@ -55,6 +55,7 @@ visible = false
 shape = SubResource( 1 )
 
 [node name="Health" parent="." instance=ExtResource( 5 )]
+health = 100
 
 [node name="Team" parent="." instance=ExtResource( 4 )]
 team = 0

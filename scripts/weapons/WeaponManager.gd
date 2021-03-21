@@ -1,7 +1,7 @@
 extends Node2D
 class_name WeaponManager
 
-signal weapon_changed
+signal weapon_changed (current_weapon)
 
 onready var current_weapon: Weapon = $Pistol
 onready var sound = $ChangeSound
@@ -10,7 +10,6 @@ var weapons: Array = []
 
 func _ready():
 	weapons = get_children()
-	
 	for weapon in weapons:
 		weapon.hide()
 
@@ -29,12 +28,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		current_weapon.shoot()
 	if event.is_action_pressed("reload"):
 		current_weapon.start_reload()
-	if event.is_action_pressed("weapon_1"):
-		switch_weapon(weapons[0])
-	if event.is_action_pressed("weapon_2"):
-		switch_weapon(weapons[1])
-	if event.is_action_pressed("weapon_3"):
-		switch_weapon(weapons[2])
+	if !current_weapon.animation.is_playing():
+		if event.is_action_pressed("weapon_1"):
+			switch_weapon(weapons[0])
+		if event.is_action_pressed("weapon_2"):
+			switch_weapon(weapons[1])
+		if event.is_action_pressed("weapon_3"):
+			switch_weapon(weapons[2])
 
 func _process(delta):
 	if current_weapon.automatic and Input.is_action_pressed("shoot"):
@@ -47,5 +47,7 @@ func switch_weapon(weapon: Weapon):
 	weapon.show()
 	sound.play()
 	current_weapon = weapon
-	
 	emit_signal("weapon_changed", current_weapon)
+	
+func get_current_weapon():
+	return current_weapon

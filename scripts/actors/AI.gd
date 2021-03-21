@@ -37,6 +37,7 @@ func initialize(actor: KinematicBody2D, weapon: Weapon, team: int):
 	self.weapon = weapon
 	self.team = team
 	weapon.connect("weapon_out_of_ammo", self, "handle_reload")
+	actor.connect("handle_shot", self, "die")
 
 func _ready():
 	set_state(State.PATROL)
@@ -63,8 +64,9 @@ func _physics_process(delta: float) -> void:
 					weapon.shoot()
 					if weapon.current_ammo == 0: 
 						handle_reload()
-			else:
 				print("Error: no weapon or player exist")
+#				print (target)
+#				print (weapon)
 		State.ADVANCE:
 			var path = pathfinding.get_new_path(global_position, next_base)
 			if path.size() > 1:

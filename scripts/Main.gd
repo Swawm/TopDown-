@@ -7,6 +7,7 @@ onready var enemy_AI = $EnemyMapAI
 onready var camera = $Camera2D
 onready var ground = $Ground
 onready var pathfinding = $Pathfinding
+onready var gui = $GUI
 
 const Player = preload("res://scenes/actors/Player.tscn")
 
@@ -31,4 +32,6 @@ func spawn_player():
 	add_child(player)
 	player.set_camera_transform(camera.get_path())
 	player.connect("died", self, "spawn_player")
+	gui.set_player(player)
+	
 

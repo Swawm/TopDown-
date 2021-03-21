@@ -2,7 +2,7 @@ extends KinematicBody2D
 class_name Actor
 
 signal died 
-
+signal handle_shot
 
 onready var health_stat = $Health
 onready var ai = $AI
@@ -18,7 +18,9 @@ func _ready():
 	ai.initialize(self, weapon, team.team)
 
 
+
 func handle_hit() -> void:
+	emit_signal("handle_shot")
 	health_stat.health -= 20
 	if health_stat.health <=0:
 		emit_signal("died")
