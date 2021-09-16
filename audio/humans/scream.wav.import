@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/pistol.wav-0588f62950136899af493db564b83ece.sample"
+path="res://.import/scream.wav-d69e3c188daf002cc6a0817919acfdf8.sample"
 
 [deps]
 
-source_file="res://audio/pistol.wav"
-dest_files=[ "res://.import/pistol.wav-0588f62950136899af493db564b83ece.sample" ]
+source_file="res://audio/humans/scream.wav"
+dest_files=[ "res://.import/scream.wav-d69e3c188daf002cc6a0817919acfdf8.sample" ]
 
 [params]
 

@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/smg.wav-fff36d0f58c793281e4c51cf8aac24f8.sample"
+path="res://.import/smg.wav-6a902214d6a9c583b77927e54164126c.sample"
 
 [deps]
 
-source_file="res://audio/smg.wav"
-dest_files=[ "res://.import/smg.wav-fff36d0f58c793281e4c51cf8aac24f8.sample" ]
+source_file="res://audio/guns/smg.wav"
+dest_files=[ "res://.import/smg.wav-6a902214d6a9c583b77927e54164126c.sample" ]
 
 [params]
 

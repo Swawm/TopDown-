@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/bfg.wav-101bb45f57bb3d61c52e70931e84d252.sample"
+path="res://.import/bfg.wav-bed9412f4398f76672b2eebdfcd5c403.sample"
 
 [deps]
 
-source_file="res://audio/bfg.wav"
-dest_files=[ "res://.import/bfg.wav-101bb45f57bb3d61c52e70931e84d252.sample" ]
+source_file="res://audio/guns/bfg.wav"
+dest_files=[ "res://.import/bfg.wav-bed9412f4398f76672b2eebdfcd5c403.sample" ]
 
 [params]
 

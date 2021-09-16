@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/hit_wall.wav-2210d261239b7b9264813a28d2195d3c.sample"
+path="res://.import/pistol_reload.wav-c62f24257d9fe89a5533aeb14ebe1783.sample"
 
 [deps]
 
-source_file="res://audio/hit_wall.wav"
-dest_files=[ "res://.import/hit_wall.wav-2210d261239b7b9264813a28d2195d3c.sample" ]
+source_file="res://audio/guns/pistol_reload.wav"
+dest_files=[ "res://.import/pistol_reload.wav-c62f24257d9fe89a5533aeb14ebe1783.sample" ]
 
 [params]
 

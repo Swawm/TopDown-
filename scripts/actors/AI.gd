@@ -13,6 +13,7 @@ enum State {
 
 
 onready var patrol_timer = $PatrolTimer
+export var vision_core_arc = 60.0
 
 
 var current_state: int = -1 setget set_state, get_state
@@ -29,8 +30,11 @@ var origin: Vector2 = Vector2.ZERO
 var patrol_location: Vector2 = Vector2.ZERO
 var patrol_location_reached: bool = false
 
-
 var next_base: Vector2 = Vector2.ZERO
+
+var angle_cone_of_vision = deg2rad(30.0)
+var max_view_distance = 800.0
+var angle_between_rays = deg2rad(5.0) 
 
 func initialize(actor: KinematicBody2D, weapon: Weapon, team: int):
 	self.actor = actor
@@ -42,6 +46,23 @@ func initialize(actor: KinematicBody2D, weapon: Weapon, team: int):
 func _ready():
 	set_state(State.PATROL)
 	
+func aim():
+	var space_state = get_world_2d().direct_space_state
+	var result = space_state.intersect_ray(position, target.position, [self])
+	if result.collider.has_method("get_team"):
+		var seen_pos = result.position
+		actor.rotate_toward(seen_pos)
+		if abs(actor.global_position.angle_to(seen_pos)) <= 0.25:
+				weapon.shoot()
+				if weapon.current_ammo == 0: 
+					handle_reload()
+	else:
+		set_state(State.ADVANCE)
+#	var target_extents = target.get_node("CollisionShape2D").shape.extents - Vector2(5, 5)
+#	var nw= target.position - target_extents
+#	var se= target.position + target_extents
+#	var ne= target.position + Vector2(target_extents.x, -target_extents.y)
+#	var sw= target.position + Vector2(-target_extents.x, +target_extents.y)
 	
 func _physics_process(delta: float) -> void:
 	match current_state:
@@ -59,14 +80,8 @@ func _physics_process(delta: float) -> void:
 					patrol_timer.start()
 		State.ENGAGE:
 			if target != null and weapon != null:
-				actor.rotate_toward(target.global_position)
-				if abs(actor.global_position.angle_to(target.global_position)) <= 0.25:
-					weapon.shoot()
-					if weapon.current_ammo == 0: 
-						handle_reload()
-				print("Error: no weapon or player exist")
-#				print (target)
-#				print (weapon)
+				aim()
+				
 		State.ADVANCE:
 			var path = pathfinding.get_new_path(global_position, next_base)
 			if path.size() > 1:
@@ -83,8 +98,8 @@ func _physics_process(delta: float) -> void:
 			return
 		_:
 			print("Error: found a state for our enemy that shouldnt exist")
-	pass
-	
+
+			
 func set_state(new_state: int):
 	if new_state == current_state:
 		return 
@@ -116,11 +131,11 @@ func _on_DetectionZone_body_entered(body):
 		target = body
 
 
-
 func _on_DetectionZone_body_exited(body):
 	if target and body == target:
 		set_state(State.ADVANCE)
 		target = null
+
 
 func handle_reload():
 	if weapon.current_ammo == 0:

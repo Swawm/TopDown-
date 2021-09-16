@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/pistol_empty.wav-e997bb2b1ce8bc0f054f182fbad792ff.sample"
+path="res://.import/weapon_change.wav-8277952011fe1ef05f73a4c12d2b2e95.sample"
 
 [deps]
 
-source_file="res://audio/pistol_empty.wav"
-dest_files=[ "res://.import/pistol_empty.wav-e997bb2b1ce8bc0f054f182fbad792ff.sample" ]
+source_file="res://audio/guns/weapon_change.wav"
+dest_files=[ "res://.import/weapon_change.wav-8277952011fe1ef05f73a4c12d2b2e95.sample" ]
 
 [params]
 
