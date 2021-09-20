@@ -21,11 +21,14 @@ func _ready():
 
 
 func handle_hit() -> void:
-	emit_signal("handle_shot")
-	health_stat.health -= 20
-	if health_stat.health <=0:
-		emit_signal("died")
-		anim.play("death")
+	if ai.get_state() != ai.State.DEAD:
+		emit_signal("handle_shot")
+		health_stat.health -= 20
+		if health_stat.health <=0:
+			emit_signal("died")
+			anim.play("death")
+	else:
+		return
 
 
 func rotate_toward(location: Vector2):
