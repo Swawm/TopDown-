@@ -47,17 +47,17 @@ func _ready():
 	set_state(State.PATROL)
 	
 func aim():
-	var space_state = get_world_2d().direct_space_state
-	var result = space_state.intersect_ray(position, target.position, [self])
-	if result.collider.has_method("get_team"):
-		var seen_pos = result.position
-		actor.rotate_toward(seen_pos)
-		if abs(actor.global_position.angle_to(seen_pos)) <= 0.25:
-				weapon.shoot()
-				if weapon.current_ammo == 0: 
-					handle_reload()
-	else:
-		set_state(State.ADVANCE)
+	if target != null and weapon != null and target.get_team() != team:
+		var space_state = get_world_2d().direct_space_state
+		var result = space_state.intersect_ray(position, target.position, [self])
+		if result.collider.has_method("get_team") and result.collider.team != actor.team:
+			actor.rotate_toward(target.position)
+			if abs(actor.global_position.angle_to(target.position)) <= 0.25:
+					weapon.shoot()
+					if weapon.current_ammo == 0: 
+						handle_reload()
+		else:
+			set_state(State.ADVANCE)
 #	var target_extents = target.get_node("CollisionShape2D").shape.extents - Vector2(5, 5)
 #	var nw= target.position - target_extents
 #	var se= target.position + target_extents
@@ -79,9 +79,7 @@ func _physics_process(delta: float) -> void:
 					actor_velocity = Vector2.ZERO
 					patrol_timer.start()
 		State.ENGAGE:
-			if target != null and weapon != null:
 				aim()
-				
 		State.ADVANCE:
 			var path = pathfinding.get_new_path(global_position, next_base)
 			if path.size() > 1:
@@ -133,8 +131,8 @@ func _on_DetectionZone_body_entered(body):
 
 func _on_DetectionZone_body_exited(body):
 	if target and body == target:
-		set_state(State.ADVANCE)
 		target = null
+		set_state(State.ADVANCE)
 
 
 func handle_reload():
@@ -143,14 +141,10 @@ func handle_reload():
 
 func get_state():
 	return current_state
-
-func attack_enemy():
-	pass
 	
-
 func die():
 	set_state(State.DEAD)
-	actor.collision.set_disabled(true)
+	actor.collision.set_deferred("disabled", true)
 	actor.team.set_team(Team.TeamName.DEAD)
 	actor.set_z_index(-1)
 	set_physics_process(false)

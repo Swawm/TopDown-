@@ -4,6 +4,7 @@ class_name Actor
 signal died 
 signal handle_shot
 
+onready var death_sounds = $Deaths
 onready var health_stat = $Health
 onready var ai = $AI
 onready var weapon = $Weapon
@@ -11,8 +12,7 @@ onready var team = $Team
 onready var anim = $AnimationPlayer
 onready var collision = $CollisionShape2D
 onready var body = $Sprite
-onready var death_sounds = $Deaths
-onready var grasp: Array
+
 
 export (int) var speed = 100
 
@@ -24,7 +24,6 @@ func handle_hit() -> void:
 	emit_signal("handle_shot")
 	health_stat.health -= 20
 	if health_stat.health <=0:
-		#print(play_random_death())
 		emit_signal("died")
 		anim.play("death")
 
@@ -43,3 +42,5 @@ func has_reached_position(location: Vector2) -> bool:
 	anim.stop()
 	return global_position.distance_to(location) < 5
 
+func play_random_death():
+	death_sounds.play_random_death_sound()

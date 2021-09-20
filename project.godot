@@ -76,7 +76,6 @@ _global_script_class_icons={
 
 config/name="Top Down"
 run/main_scene="res://scenes/Main.tscn"
-config/icon="res://icon.png"
 
 [audio]
 
