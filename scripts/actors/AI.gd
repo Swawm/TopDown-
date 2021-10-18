@@ -45,7 +45,6 @@ func _ready():
 
 	
 func _physics_process(delta: float) -> void:
-	sightcheck()
 	match current_state:
 		State.PATROL:
 			if not patrol_location_reached:
@@ -114,16 +113,17 @@ func _on_PatrolTimer_timeout():
 func _on_DetectionZone_body_entered(body):
 	if body.has_method("get_team") and body.get_team() != team:
 		print("Target in range")
-		set_state(State.ENGAGE)
 		target = body
+		set_state(State.ENGAGE)
+
 
 
 func _on_DetectionZone_body_exited(body):
 	if target and body == target:
 		print("Target out of range")
-		target = null
 		set_state(State.ADVANCE)
-
+		target = null
+		in_sight = false
 
 func handle_reload():
 	if weapon.current_ammo == 0:
@@ -139,22 +139,21 @@ func sightcheck():
 	if get_state() != State.DEAD:
 		if target:
 			var space_state = get_world_2d().direct_space_state
-			var sight_check = space_state.intersect_ray(position, target.position, [self])
-			print("sight_check", sight_check)
-			if sight_check.has("collider_id"):
-				in_sight = false
+			var sight_check = space_state.intersect_ray(position, target.position, [self], actor.collision_mask)
+			if sight_check.collider.name != actor.name:
+				actor.rotate_toward(sight_check.position)
+				if abs(actor.global_position.angle_to(target.position)) <= 0.25:
+					in_sight = true
 			else:
-				in_sight = true
-				print("see you")
-				set_state(State.ENGAGE)
-				pass
-				
+				in_sight = false
+				set_state(State.PATROL)
+			return in_sight
+
 func aim():
-	if target != null and weapon != null and target.get_team() != team:
-		actor.rotate_toward(target.position)
-		if abs(actor.global_position.angle_to(target.position)) <= 0.25 and in_sight == true:
-			weapon.shoot()
-			if weapon.current_ammo == 0: 
-				handle_reload()
-		else:
-			set_state(State.ADVANCE)
+	if sightcheck():
+		weapon.shoot()
+		if weapon.current_ammo == 0: 
+			handle_reload()
+	else:
+		set_state(State.ADVANCE)
+

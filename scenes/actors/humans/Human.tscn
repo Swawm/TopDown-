@@ -18,6 +18,7 @@ radius = 101.178
 "Human_Enemies",
 "obstacles",
 ]]
+collision_layer = 3
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -34,11 +35,9 @@ shape = SubResource( 1 )
 [node name="Health" parent="." instance=ExtResource( 6 )]
 
 [node name="AI" type="Node2D" parent="."]
-position = Vector2( 4, 4 )
 script = ExtResource( 5 )
 
 [node name="DetectionZone" type="Area2D" parent="AI"]
-position = Vector2( -1, -4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AI/DetectionZone"]
 shape = SubResource( 2 )
