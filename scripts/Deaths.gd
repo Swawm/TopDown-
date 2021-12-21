@@ -5,4 +5,4 @@ func play_random_death_sound():
 	children.shuffle()
 	var rand_child = children[0]
 	rand_child.play()
-	
+

@@ -4,21 +4,19 @@ class_name Map_AI
 enum BaseCaptureOrder{
 	FIRST,
 	LAST
-	
+
 }
-
-
 
 export (BaseCaptureOrder) var base_capture_start_order
 export (Team.TeamName) var team_name = Team.TeamName.NEUTRAL
-export (PackedScene) var unit = null 
-export (int) var max_units_alive = 250 
+export (PackedScene) var unit = null
+export (int) var max_units_alive = 250
 
 onready var team = $Team
 onready var unit_container = $UnitContainer
 onready var respawn_timer = $RespawnTimer
 
-var target_base: CapturableBase = null 
+var target_base: CapturableBase = null
 var capturable_bases: Array = []
 var respawn_points: Array = []
 var next_spawn_to_use: int = 0
@@ -30,23 +28,21 @@ func initialize(capturable_bases: Array, respawn_points: Array, pathfinding: Pat
 		return
 	team.team = team_name
 	self.pathfinding = pathfinding
-	
-	
+
+
 	self.capturable_bases = capturable_bases
 	self.respawn_points = respawn_points
 	for respawn in respawn_points:
 		spawn_unit(respawn.global_position)
 	for base in capturable_bases:
 		base.connect("base_captured", self, "handle_base_captured")
-	
+
 	check_for_next_capturable_bases()
 
-	
 func handle_base_captured(_new_team: int):
 	check_for_next_capturable_bases()
-	
 
-func check_for_next_capturable_bases():	
+func check_for_next_capturable_bases():
 	var next_base = get_next_capturable_base()
 	if next_base != null:
 		target_base = next_base
@@ -56,16 +52,16 @@ func get_next_capturable_base():
 	var list_of_bases = range(capturable_bases.size())
 	if base_capture_start_order == BaseCaptureOrder.LAST:
 		list_of_bases = range(capturable_bases.size() -1, -1, -1)
-		
+
 	for i in list_of_bases:
 		var base: CapturableBase = capturable_bases[i]
 		if team.team != base.team.team:
 			return base
-	
+
 	return null
-	
-func assign_next_capturable_base(base: CapturableBase): 
-		
+
+func assign_next_capturable_base(base: CapturableBase):
+
 	for unit in unit_container.get_children():
 		set_unit_ai_to_advance_to_next_base(unit)
 
@@ -81,12 +77,11 @@ func set_unit_ai_to_advance_to_next_base(unit: Actor):
 	if target_base != null:
 		var ai: AI = unit.ai
 		ai.next_base = target_base.get_random_position_within_capture_radius()
-		ai.set_state(AI.State.ADVANCE)
-		
+		ai.set_state(AI.State.ADVANCING)
+
 func handle_unit_death():
 	if respawn_timer.is_stopped() and unit_container.get_children().size() < max_units_alive:
 		respawn_timer.start()
-
 
 func _on_RespawnTimer_timeout():
 	var respawn = respawn_points[next_spawn_to_use]
