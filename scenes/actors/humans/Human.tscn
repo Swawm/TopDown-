@@ -14,11 +14,8 @@ extents = Vector2( 4, 6 )
 [sub_resource type="CircleShape2D" id=2]
 radius = 101.178
 
-[node name="Human" type="KinematicBody2D" groups=[
-"Human_Enemies",
-"obstacles",
-]]
-collision_layer = 3
+[node name="Human" type="KinematicBody2D" groups=["Human_Enemies", "obstacles"]]
+collision_mask = 6
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

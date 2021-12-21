@@ -8,10 +8,5 @@
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 3 )
 
-[node name="RayCast2D" parent="AI" index="0" groups=[
-"raycasts",
-]]
-enabled = true
-
 [node name="Team" parent="." index="4"]
 team = 1

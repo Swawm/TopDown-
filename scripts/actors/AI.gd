@@ -112,8 +112,8 @@ func _on_PatrolTimer_timeout():
 
 func _on_DetectionZone_body_entered(body):
 	if body.has_method("get_team") and body.get_team() != team:
-		print("Target in range")
 		target = body
+		print("Target in range ", target)
 		set_state(State.ENGAGE)
 
 
@@ -140,9 +140,11 @@ func sightcheck():
 		if target:
 			var space_state = get_world_2d().direct_space_state
 			var sight_check = space_state.intersect_ray(position, target.position, [self], actor.collision_mask)
-			if sight_check.collider.name != actor.name:
+			if sight_check.collider.name != actor.name and sight_check.collider.name != "Buildings":
+				print(sight_check.collider.name)
+				print(target)
 				actor.rotate_toward(sight_check.position)
-				if abs(actor.global_position.angle_to(target.position)) <= 0.25:
+				if abs(actor.global_position.angle_to(target.position)) <= 1:
 					in_sight = true
 			else:
 				in_sight = false
