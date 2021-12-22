@@ -101,7 +101,6 @@ func _on_DetectionZone_body_entered(body):
 	if target:
 		# Цель уже есть, новую не нужно искать
 		return
-
 	if body.has_method("get_team") and body.get_team() != team:
 		target = body
 		print("Target in range ", target)

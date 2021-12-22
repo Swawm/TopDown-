@@ -47,7 +47,7 @@ func handle_hit() -> void:
 	health_stat.health -= 20
 	emit_signal("player_health_changed", health_stat.health)
 	if health_stat.health <= 0:
-		#die()
+		die()
 		pass
 
 func get_team() -> int:
