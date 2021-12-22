@@ -1,23 +1,20 @@
 extends KinematicBody2D
 class_name Player
 
-signal died 
+signal died
 signal player_health_changed(new_health)
 
 export (int) var speed = 100
-
-
 
 onready var health_stat = $Health
 onready var weapon = $Weapon
 onready var team = $Team
 onready var remote_transform = $CameraTransform
 onready var anim = $AnimationPlayer
-onready var collision = $CollisionShape2D		
-
+onready var collision = $CollisionShape2D
 
 func _physics_process(delta) -> void:
-	
+
 	var movement_direction := Vector2.ZERO
 	if Input.is_action_pressed("up"):
 		movement_direction.y = -1
@@ -45,17 +42,17 @@ func _physics_process(delta) -> void:
 
 func initialize():
 	weapon.initialize()
-	
+
 func handle_hit() -> void:
 	health_stat.health -= 20
 	emit_signal("player_health_changed", health_stat.health)
 	if health_stat.health <= 0:
 		#die()
 		pass
-		
+
 func get_team() -> int:
 	return team.team
-	
+
 func set_camera_transform(camera_path: NodePath):
 	remote_transform.remote_path = camera_path
 

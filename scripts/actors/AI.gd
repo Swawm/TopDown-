@@ -3,34 +3,27 @@ class_name AI
 
 signal state_changed(new_state)
 
-
 enum State {
-	PATROL, 
-	ENGAGE,
-	ADVANCE,
+	ON_PATROL,
+	ENGAGED,
+	ADVANCING,
 	DEAD,
 }
 
-
 onready var patrol_timer = $PatrolTimer
 export var vision_core_arc = 60.0
-
 
 var current_state: int = -1 setget set_state, get_state
 var target: KinematicBody2D = null
 var weapon: Weapon = null
 var actor: Actor = null
 var actor_velocity: Vector2 = Vector2.ZERO
-var team: int = -1 
+var team: int = -1
 var pathfinding: Pathfinding
-
 var in_sight : bool
-
-
 var origin: Vector2 = Vector2.ZERO
 var patrol_location: Vector2 = Vector2.ZERO
 var patrol_location_reached: bool = false
-
 var next_base: Vector2 = Vector2.ZERO
 
 func initialize(actor: KinematicBody2D, weapon: Weapon, team: int):
@@ -41,12 +34,11 @@ func initialize(actor: KinematicBody2D, weapon: Weapon, team: int):
 	actor.connect("handle_shot", self, "die")
 
 func _ready():
-	set_state(State.PATROL)
+	set_state(State.ON_PATROL)
 
-	
 func _physics_process(delta: float) -> void:
 	match current_state:
-		State.PATROL:
+		State.ON_PATROL:
 			if not patrol_location_reached:
 				var path = pathfinding.get_new_path(global_position, patrol_location)
 				if path.size() > 1:
@@ -58,9 +50,9 @@ func _physics_process(delta: float) -> void:
 					patrol_location_reached = true
 					actor_velocity = Vector2.ZERO
 					patrol_timer.start()
-		State.ENGAGE:
-				aim()
-		State.ADVANCE:
+		State.ENGAGED:
+				attack()
+		State.ADVANCING:
 			var path = pathfinding.get_new_path(global_position, next_base)
 			if path.size() > 1:
 				actor_velocity = actor.velocity_toward(path[1])
@@ -68,9 +60,9 @@ func _physics_process(delta: float) -> void:
 				actor.anim.play("run")
 				actor.move_and_slide(actor_velocity)
 			else:
-				set_state(State.PATROL)
+				set_state(State.ON_PATROL)
 			if target != null and weapon != null:
-				set_state(State.ENGAGE)
+				set_state(State.ENGAGED)
 		State.DEAD:
 			var timer = Timer.new()
 			self.add_child(timer)
@@ -84,22 +76,19 @@ func _physics_process(delta: float) -> void:
 		_:
 			print("Error: found a state for our enemy that shouldnt exist")
 
-			
 func set_state(new_state: int):
 	if new_state == current_state:
-		return 
-	if new_state == State.PATROL:
+		return
+	if new_state == State.ON_PATROL:
 		origin = global_position
 		patrol_timer.start()
 		patrol_location_reached = true
-	elif new_state == State.ADVANCE:
+	elif new_state == State.ADVANCING:
 		actor.anim.play("run")
 		if actor.has_reached_position(next_base):
-			set_state(State.PATROL)
+			set_state(State.ON_PATROL)
 	current_state = new_state
 	emit_signal("state_changed", current_state)
-
-
 
 func _on_PatrolTimer_timeout():
 	var patrol_range = 50
@@ -108,20 +97,20 @@ func _on_PatrolTimer_timeout():
 	patrol_location = Vector2(random_x, random_y) + origin
 	patrol_location_reached = false
 
-
-
 func _on_DetectionZone_body_entered(body):
+	if target:
+		# Цель уже есть, новую не нужно искать
+		return
+
 	if body.has_method("get_team") and body.get_team() != team:
 		target = body
 		print("Target in range ", target)
-		set_state(State.ENGAGE)
-
-
+		set_state(State.ENGAGED)
 
 func _on_DetectionZone_body_exited(body):
 	if target and body == target:
 		print("Target out of range")
-		set_state(State.ADVANCE)
+		set_state(State.ADVANCING)
 		target = null
 		in_sight = false
 
@@ -131,31 +120,34 @@ func handle_reload():
 
 func get_state():
 	return current_state
-	
+
 func die():
 	set_state(State.DEAD)
-	
-func sightcheck():
-	if get_state() != State.DEAD:
-		if target:
-			var space_state = get_world_2d().direct_space_state
-			var sight_check = space_state.intersect_ray(position, target.position, [self], actor.collision_mask)
-			if sight_check.collider.name != actor.name and sight_check.collider.name != "Buildings":
-				print(sight_check.collider.name)
-				print(target)
-				actor.rotate_toward(sight_check.position)
-				if abs(actor.global_position.angle_to(target.position)) <= 1:
-					in_sight = true
-			else:
-				in_sight = false
-				set_state(State.PATROL)
-			return in_sight
 
-func aim():
-	if sightcheck():
+func is_target_visible():
+	# Значение в радианах, 2 ~= 120 градусов/2
+	var field_of_view = 2
+
+	if target and abs(actor.global_position.angle_to(target.position)) <= field_of_view:
+		var space_state = get_world_2d().direct_space_state
+		var intersection = space_state.intersect_ray(
+			actor.position,
+			target.position,
+			[self],
+			actor.collision_mask
+		)
+
+		if intersection.collider.name != "Buildings":
+			in_sight = true
+		else:
+			in_sight = false
+
+		return in_sight
+
+func attack():
+	if is_target_visible():
+		actor.rotate_toward(target.position)
 		weapon.shoot()
-		if weapon.current_ammo == 0: 
-			handle_reload()
+		handle_reload()
 	else:
-		set_state(State.ADVANCE)
-
+		set_state(State.ADVANCING)

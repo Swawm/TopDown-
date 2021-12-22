@@ -1,5 +1,5 @@
 extends Node2D
-class_name Team 
+class_name Team
 
 
 enum TeamName{
