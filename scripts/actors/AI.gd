@@ -101,9 +101,10 @@ func _on_DetectionZone_body_entered(body):
 	if target:
 		# Цель уже есть, новую не нужно искать
 		return
-	if body.has_method("get_team") and body.get_team() != team:
+
+	if body.has_method("get_team") and body.get_team() != team and is_target_visible(body):
 		target = body
-		print("Target in range ", target)
+		print(actor, " target in range ", target)
 		set_state(State.ENGAGED)
 
 func _on_DetectionZone_body_exited(body):
@@ -123,10 +124,11 @@ func get_state():
 func die():
 	set_state(State.DEAD)
 
-func is_target_visible():
+func is_target_visible(target) -> bool:
 	# Значение в радианах, 2 ~= 120 градусов/2
 	var field_of_view = 2
-	if target and abs(actor.position.angle_to(target.position)) <= field_of_view:
+	var in_sight = false
+	if abs(actor.position.angle_to(target.position)) <= field_of_view:
 		var space_state = get_world_2d().direct_space_state
 		var intersection = space_state.intersect_ray(
 			actor.position,
@@ -134,14 +136,14 @@ func is_target_visible():
 			[self],
 			actor.collision_mask
 		)
+
 		if intersection.collider.name != "Buildings":
 			in_sight = true
-		else:
-			in_sight = false
-		return in_sight
+
+	return in_sight
 
 func attack():
-	if is_target_visible():
+	if target:
 		actor.rotate_toward(target.position)
 		weapon.shoot()
 		handle_reload()

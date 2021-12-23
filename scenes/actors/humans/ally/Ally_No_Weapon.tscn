@@ -3,13 +3,15 @@
 [ext_resource path="res://scenes/actors/humans/Human.tscn" type="PackedScene" id=1]
 
 [node name="Human" instance=ExtResource( 1 )]
+collision_layer = 8
+collision_mask = 6
 
 [node name="Sprite" parent="." index="0"]
 frame = 0
 
 [node name="DetectionZone" parent="AI" index="0"]
 collision_layer = 4
-collision_mask = 10
+collision_mask = 14
 
 [node name="Team" parent="." index="4"]
 team = 0

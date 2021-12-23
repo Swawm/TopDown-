@@ -16,7 +16,7 @@ radius = 101.178
 
 [node name="Human" type="KinematicBody2D" groups=["Human_Enemies", "obstacles"]]
 collision_layer = 4
-collision_mask = 10
+collision_mask = 14
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -37,7 +37,7 @@ script = ExtResource( 5 )
 
 [node name="DetectionZone" type="Area2D" parent="AI"]
 collision_layer = 0
-collision_mask = 8
+collision_mask = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AI/DetectionZone"]
 shape = SubResource( 2 )
