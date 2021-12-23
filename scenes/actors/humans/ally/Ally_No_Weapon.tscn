@@ -7,5 +7,8 @@
 [node name="Sprite" parent="." index="0"]
 frame = 0
 
+[node name="DetectionZone" parent="AI" index="0"]
+collision_mask = 12
+
 [node name="Team" parent="." index="4"]
 team = 0

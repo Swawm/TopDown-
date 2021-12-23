@@ -126,8 +126,7 @@ func die():
 func is_target_visible():
 	# Значение в радианах, 2 ~= 120 градусов/2
 	var field_of_view = 2
-
-	if target and abs(actor.global_position.angle_to(target.position)) <= field_of_view:
+	if target and abs(actor.position.angle_to(target.position)) <= field_of_view:
 		var space_state = get_world_2d().direct_space_state
 		var intersection = space_state.intersect_ray(
 			actor.position,
@@ -135,12 +134,11 @@ func is_target_visible():
 			[self],
 			actor.collision_mask
 		)
-
+		print(target)
 		if intersection.collider.name != "Buildings":
 			in_sight = true
 		else:
 			in_sight = false
-
 		return in_sight
 
 func attack():
