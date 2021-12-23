@@ -8,7 +8,8 @@
 frame = 0
 
 [node name="DetectionZone" parent="AI" index="0"]
-collision_mask = 12
+collision_layer = 4
+collision_mask = 10
 
 [node name="Team" parent="." index="4"]
 team = 0

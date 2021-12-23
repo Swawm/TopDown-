@@ -134,7 +134,6 @@ func is_target_visible():
 			[self],
 			actor.collision_mask
 		)
-		print(target)
 		if intersection.collider.name != "Buildings":
 			in_sight = true
 		else:
