@@ -98,7 +98,7 @@ func _on_PatrolTimer_timeout():
 	patrol_location_reached = false
 
 func _on_DetectionZone_body_entered(body):
-	if target:
+	if target and is_target_visible(body):
 		# Цель уже есть, новую не нужно искать
 		return
 
@@ -129,23 +129,40 @@ func is_target_visible(target) -> bool:
 	var field_of_view = 2
 	var in_sight = false
 	if abs(actor.position.angle_to(target.position)) <= field_of_view:
-		var space_state = get_world_2d().direct_space_state
-		var intersection = space_state.intersect_ray(
-			actor.position,
-			target.position,
-			[self],
-			actor.collision_mask
-		)
-
-		if intersection.collider.name != "Buildings":
-			in_sight = true
+		var intersection = raycast(actor.position, target.position)
+		if intersection.has("collider"):
+			print("aboba is ", intersection.collider.name)
+			if intersection.collider.name != "Buildings":
+				in_sight = true
+				return in_sight
 
 	return in_sight
 
 func attack():
+	var intersection = raycast(actor.position, target.position)
+	in_sight = false
+	if intersection.has("collider"):
+		print("aboba is ", intersection.collider.name)
+		if intersection.collider.name != "Buildings":
+			in_sight = true
+	if not in_sight:
+		target = null
 	if target:
 		actor.rotate_toward(target.position)
 		weapon.shoot()
 		handle_reload()
 	else:
 		set_state(State.ADVANCING)
+
+func raycast(from, to):
+	var space_state = get_world_2d().direct_space_state
+	var intersection = space_state.intersect_ray(
+			from,
+			to,
+			[self],
+			actor.collision_mask
+		)
+	return intersection
+	
+func check_fov():
+	

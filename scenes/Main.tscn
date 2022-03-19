@@ -609,12 +609,6 @@ script = ExtResource( 3 )
 [node name="AllyRespawnPoints" type="Node2D" parent="."]
 position = Vector2( 251, 271 )
 
-[node name="Position2D20" type="Position2D" parent="AllyRespawnPoints"]
-position = Vector2( -290, -344 )
-
-[node name="Position2D21" type="Position2D" parent="AllyRespawnPoints"]
-position = Vector2( -242, -342 )
-
 [node name="AllyMapAI" parent="." instance=ExtResource( 4 )]
 team_name = 0
 unit = ExtResource( 5 )
