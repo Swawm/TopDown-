@@ -1,4 +1,4 @@
- extends Node2D
+extends Node2D
 class_name Map_AI
 
 enum BaseCaptureOrder{
@@ -28,6 +28,7 @@ func initialize(capturable_bases: Array, respawn_points: Array, pathfinding: Pat
 		return
 	team.team = team_name
 	self.pathfinding = pathfinding
+	
 
 
 	self.capturable_bases = capturable_bases
@@ -61,7 +62,6 @@ func get_next_capturable_base():
 	return null
 
 func assign_next_capturable_base(base: CapturableBase):
-
 	for unit in unit_container.get_children():
 		set_unit_ai_to_advance_to_next_base(unit)
 
@@ -74,10 +74,12 @@ func spawn_unit(spawn_location: Vector2):
 	set_unit_ai_to_advance_to_next_base(unit_instance)
 
 func set_unit_ai_to_advance_to_next_base(unit: Actor):
-	if target_base != null:
+	if target_base != null and unit != null:
 		var ai: AI = unit.ai
-		ai.next_base = target_base.get_random_position_within_capture_radius()
-		ai.set_state(AI.State.ADVANCING)
+		print(ai)
+		if ai != null:
+			ai.next_base = target_base.get_random_position_within_capture_radius()
+			ai.set_state(AI.State.ADVANCING)
 
 func handle_unit_death():
 	if respawn_timer.is_stopped() and unit_container.get_children().size() < max_units_alive:

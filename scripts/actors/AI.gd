@@ -25,6 +25,7 @@ var origin: Vector2 = Vector2.ZERO
 var patrol_location: Vector2 = Vector2.ZERO
 var patrol_location_reached: bool = false
 var next_base: Vector2 = Vector2.ZERO
+var target_list : Array
 
 func initialize(actor: KinematicBody2D, weapon: Weapon, team: int):
 	self.actor = actor
@@ -67,7 +68,7 @@ func _physics_process(delta: float) -> void:
 			var timer = Timer.new()
 			self.add_child(timer)
 			timer.connect("timeout", self, "queue_free")
-			timer.set_wait_time(2)
+			timer.set_wait_time(1)
 			timer.start()
 			actor.team.set_team(Team.TeamName.DEAD)
 			actor.set_z_index(-1)
@@ -98,6 +99,7 @@ func _on_PatrolTimer_timeout():
 	patrol_location_reached = false
 
 func _on_DetectionZone_body_entered(body):
+	target_list.append(body)
 	if target and is_target_visible(body):
 		# Цель уже есть, новую не нужно искать
 		return
@@ -108,11 +110,17 @@ func _on_DetectionZone_body_entered(body):
 		set_state(State.ENGAGED)
 
 func _on_DetectionZone_body_exited(body):
-	if target and body == target:
-		print("Target out of range")
-		set_state(State.ADVANCING)
-		target = null
-		in_sight = false
+	if actor.health_stat.health == 0:
+		return # Откровенная дрисня, пофиксить в дальнейшем. (Без этого не работает анимация).
+	var target_to_del = 0
+	for i in range(target_list.size()):
+		if target_list[i] == body:
+			target_to_del = i
+			break
+	target_list.remove(target_to_del)
+	set_state(State.ADVANCING)
+	in_sight = false
+
 
 func handle_reload():
 	if weapon.current_ammo == 0:
@@ -164,5 +172,24 @@ func raycast(from, to):
 		)
 	return intersection
 	
-func check_fov():
-	
+func defalut_strategy(entered_objects: Array):
+	if len(entered_objects) == 0:
+		return
+	#var tif = target_in_fov()	
+	var potential_target
+	for entity in entered_objects:
+		var intersection = raycast(actor.position, entity.position)
+		if intersection.has("collider"):
+			if intersection.collider.name != "Buildings":
+				if entity == target: 
+					in_sight = true 
+					return
+				potential_target = entity
+	if potential_target == null:
+		in_sight = false
+		target = null
+		set_state(State.ON_PATROL) 
+	else:
+		target = potential_target
+		in_sight = true
+	return
