@@ -6,7 +6,7 @@
 collision_layer = 8
 collision_mask = 6
 
-[node name="Sprite" parent="." index="0"]
+[node name="Sprite2D" parent="." index="0"]
 frame = 0
 
 [node name="DetectionZone" parent="AI" index="0"]

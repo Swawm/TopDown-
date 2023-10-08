@@ -1,20 +1,20 @@
-extends KinematicBody2D
+extends CharacterBody2D
 class_name Actor
 
 signal died 
 signal handle_shot
 
-onready var death_sounds = $Deaths
-onready var health_stat = $Health
-onready var ai = $AI
-onready var weapon = $Weapon
-onready var team = $Team
-onready var anim = $AnimationPlayer
-onready var collision = $CollisionShape2D
-onready var body = $Sprite
+@onready var death_sounds = $Deaths
+@onready var health_stat = $Health
+@onready var ai = $AI
+@onready var weapon = $Weapon
+@onready var team = $Team
+@onready var anim = $AnimationPlayer
+@onready var collision = $CollisionShape2D
+@onready var body = $Sprite2D
 
 
-export (int) var speed = 100
+@export var speed : int = 100
 
 func _ready():
 	ai.initialize(self, weapon, team.team)

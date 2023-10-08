@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Kenney Mini.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Kenney Mini.ttf" type="FontFile" id=1]
 [ext_resource path="res://scripts/GUI.gd" type="Script" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -19,13 +19,13 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="FontFile" id=3]
 size = 36
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="FontFile" id=4]
 size = 36
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
@@ -37,87 +37,87 @@ script = ExtResource( 2 )
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -1.0
-margin_top = -6.0
-margin_right = -1.0
-margin_bottom = -6.0
+offset_left = -1.0
+offset_top = -6.0
+offset_right = -1.0
+offset_bottom = -6.0
 mouse_filter = 2
-custom_constants/margin_right = 40
-custom_constants/margin_top = 40
-custom_constants/margin_left = 40
-custom_constants/margin_bottom = 40
+custom_constants/offset_right = 40
+custom_constants/offset_top = 40
+custom_constants/offset_left = 40
+custom_constants/offset_bottom = 40
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Rows" type="VBoxContainer" parent="MarginContainer"]
-margin_left = 40.0
-margin_top = 40.0
-margin_right = 984.0
-margin_bottom = 560.0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 984.0
+offset_bottom = 560.0
 mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TopRow" type="HBoxContainer" parent="MarginContainer/Rows"]
-margin_right = 944.0
-margin_bottom = 35.0
+offset_right = 944.0
+offset_bottom = 35.0
 mouse_filter = 2
 size_flags_vertical = 3
 
 [node name="MiddleRow" type="HBoxContainer" parent="MarginContainer/Rows"]
-margin_top = 39.0
-margin_right = 944.0
-margin_bottom = 471.0
+offset_top = 39.0
+offset_right = 944.0
+offset_bottom = 471.0
 mouse_filter = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 12.0
 
 [node name="BottomRow" type="HBoxContainer" parent="MarginContainer/Rows"]
-margin_top = 475.0
-margin_right = 944.0
-margin_bottom = 520.0
+offset_top = 475.0
+offset_right = 944.0
+offset_bottom = 520.0
 mouse_filter = 2
 size_flags_vertical = 3
 
 [node name="Health" type="ProgressBar" parent="MarginContainer/Rows/BottomRow"]
-margin_right = 200.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 200, 30 )
+offset_right = 200.0
+offset_bottom = 30.0
+minimum_size = Vector2( 200, 30 )
 custom_styles/fg = SubResource( 1 )
-custom_styles/bg = SubResource( 2 )
+custom_styles/panel = SubResource( 2 )
 value = 54.0
 percent_visible = false
 
 [node name="Ammo Section" type="HBoxContainer" parent="MarginContainer/Rows/BottomRow"]
-margin_left = 204.0
-margin_right = 855.0
-margin_bottom = 45.0
+offset_left = 204.0
+offset_right = 855.0
+offset_bottom = 45.0
 size_flags_horizontal = 3
 
 [node name="CurrentAmmo" type="Label" parent="MarginContainer/Rows/BottomRow"]
-margin_left = 859.0
-margin_right = 882.0
-margin_bottom = 45.0
+offset_left = 859.0
+offset_right = 882.0
+offset_bottom = 45.0
 custom_fonts/font = SubResource( 3 )
 text = "7"
 
 [node name="slash" type="Label" parent="MarginContainer/Rows/BottomRow"]
-margin_left = 886.0
-margin_right = 913.0
-margin_bottom = 45.0
+offset_left = 886.0
+offset_right = 913.0
+offset_bottom = 45.0
 custom_fonts/font = SubResource( 3 )
 text = "/"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/Rows/BottomRow"]
-margin_left = 917.0
-margin_right = 917.0
-margin_bottom = 45.0
+offset_left = 917.0
+offset_right = 917.0
+offset_bottom = 45.0
 
 [node name="TotalAmmo" type="Label" parent="MarginContainer/Rows/BottomRow"]
-margin_left = 921.0
-margin_right = 944.0
-margin_bottom = 45.0
+offset_left = 921.0
+offset_right = 944.0
+offset_bottom = 45.0
 custom_fonts/font = SubResource( 4 )
 text = "7"

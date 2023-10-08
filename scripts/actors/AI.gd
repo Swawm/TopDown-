@@ -10,11 +10,15 @@ enum State {
 	DEAD,
 }
 
-onready var patrol_timer = $PatrolTimer
-export var vision_core_arc = 60.0
+@onready var patrol_timer = $PatrolTimer
+@export var vision_core_arc = 60.0
 
-var current_state: int = -1 setget set_state, get_state
-var target: KinematicBody2D = null
+var current_state: int = -1 :
+	get:
+		return current_state # TODOConverter40 Copy here content of get_state
+	set(mod_value):
+		mod_value  # TODOConverter40 Copy here content of set_state
+var target: CharacterBody2D = null
 var weapon: Weapon = null
 var actor: Actor = null
 var actor_velocity: Vector2 = Vector2.ZERO
@@ -27,12 +31,12 @@ var patrol_location_reached: bool = false
 var next_base: Vector2 = Vector2.ZERO
 var target_list : Array
 
-func initialize(actor: KinematicBody2D, weapon: Weapon, team: int):
+func initialize(actor: CharacterBody2D, weapon: Weapon, team: int):
 	self.actor = actor
 	self.weapon = weapon
 	self.team = team
-	weapon.connect("weapon_out_of_ammo", self, "handle_reload")
-	actor.connect("handle_shot", self, "die")
+	weapon.connect("weapon_out_of_ammo",Callable(self,"handle_reload"))
+	actor.connect("handle_shot",Callable(self,"die"))
 
 func _ready():
 	set_state(State.ON_PATROL)
@@ -46,7 +50,9 @@ func _physics_process(delta: float) -> void:
 					actor_velocity = actor.velocity_toward(path[1])
 					actor.rotate_toward(path[1])
 					actor.anim.play("run")
-					actor.move_and_slide(actor_velocity)
+					actor.set_velocity(actor_velocity)
+					actor.move_and_slide()
+					actor.velocity
 				else:
 					patrol_location_reached = true
 					actor_velocity = Vector2.ZERO
@@ -59,7 +65,9 @@ func _physics_process(delta: float) -> void:
 				actor_velocity = actor.velocity_toward(path[1])
 				actor.rotate_toward(path[1])
 				actor.anim.play("run")
-				actor.move_and_slide(actor_velocity)
+				actor.set_velocity(actor_velocity)
+				actor.move_and_slide()
+				actor.velocity
 			else:
 				set_state(State.ON_PATROL)
 			if target != null and weapon != null:
@@ -67,13 +75,14 @@ func _physics_process(delta: float) -> void:
 		State.DEAD:
 			var timer = Timer.new()
 			self.add_child(timer)
-			timer.connect("timeout", self, "queue_free")
+			timer.connect("timeout",Callable(self,"queue_free"))
 			timer.set_wait_time(1)
 			timer.start()
 			actor.team.set_team(Team.TeamName.DEAD)
 			actor.set_z_index(-1)
 			actor.collision.set_deferred("disabled", true)
 			set_physics_process(false)
+			print("ai is dead now", actor.ai)
 		_:
 			print("Error: found a state for our enemy that shouldnt exist")
 
@@ -93,8 +102,8 @@ func set_state(new_state: int):
 
 func _on_PatrolTimer_timeout():
 	var patrol_range = 50
-	var random_x = rand_range(-patrol_range, patrol_range)
-	var random_y = rand_range(-patrol_range, patrol_range)
+	var random_x = randf_range(-patrol_range, patrol_range)
+	var random_y = randf_range(-patrol_range, patrol_range)
 	patrol_location = Vector2(random_x, random_y) + origin
 	patrol_location_reached = false
 
@@ -117,7 +126,7 @@ func _on_DetectionZone_body_exited(body):
 		if target_list[i] == body:
 			target_to_del = i
 			break
-	target_list.remove(target_to_del)
+	target_list.remove_at(target_to_del)
 	set_state(State.ADVANCING)
 	in_sight = false
 
@@ -163,13 +172,12 @@ func attack():
 		set_state(State.ADVANCING)
 
 func raycast(from, to):
+	var params = PhysicsRayQueryParameters2D.new()
+	params.from = global_transform.origin + Vector2.UP
+	params.to = actor.global_transform.origin
+	params.exclude = []
 	var space_state = get_world_2d().direct_space_state
-	var intersection = space_state.intersect_ray(
-			from,
-			to,
-			[self],
-			actor.collision_mask
-		)
+	var intersection = space_state.intersect_ray(params)
 	return intersection
 	
 func defalut_strategy(entered_objects: Array):

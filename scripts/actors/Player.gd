@@ -1,17 +1,17 @@
-extends KinematicBody2D
+extends CharacterBody2D
 class_name Player
 
 signal died
 signal player_health_changed(new_health)
 
-export (int) var speed = 100
+@export  var speed = 100
 
-onready var health_stat = $Health
-onready var weapon = $Weapon
-onready var team = $Team
-onready var remote_transform = $CameraTransform
-onready var anim = $AnimationPlayer
-onready var collision = $CollisionShape2D
+@onready var health_stat = $Health
+@onready var weapon = $Weapon
+@onready var team = $Team
+@onready var remote_transform = $CameraTransform
+@onready var anim = $AnimationPlayer
+@onready var collision = $CollisionShape2D
 
 func _physics_process(delta) -> void:
 
@@ -36,7 +36,9 @@ func _physics_process(delta) -> void:
 		anim.set_speed_scale(1)
 
 	movement_direction = movement_direction.normalized()
-	move_and_slide(movement_direction * speed)
+	set_velocity(movement_direction * speed)
+	move_and_slide()
+	velocity
 
 	look_at(get_global_mouse_position())
 

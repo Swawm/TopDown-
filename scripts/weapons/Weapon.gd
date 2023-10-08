@@ -5,22 +5,25 @@ signal weapon_out_of_ammo
 signal weapon_ammo_changed(new_ammo_count)
 
 
-export (PackedScene) var Bullet
+@export var Bullet: PackedScene
+@export var  max_ammo: int = 7
+@export var  automatic: bool = false
+@export var  bullet_speed: int =  0
+var current_ammo: int = max_ammo :
+	get:
+		return current_ammo # TODOConverter40 Non existent get function 
+	set(mod_value):
+		mod_value  # TODOConverter40 Copy here content of set_current_ammo
 
-export (int) var max_ammo: int = 7
-export (bool) var automatic: bool = false
-export (float) var bullet_speed: int =  0
-var current_ammo: int = max_ammo setget set_current_ammo
 
 
-
-onready var end_of_gun = $EndGun
-onready var attack_cooldown = $AttackCooldown
-onready var animation = $AnimationPlayer
-onready var shoot_sound = $ShootSound
-onready var empty_shoot_sound = $EmptySound
-onready var reload_sound = $ReloadSound
-onready var muzzle = $MuzzleFlash
+@onready var end_of_gun = $EndGun
+@onready var attack_cooldown = $AttackCooldown
+@onready var animation = $AnimationPlayer
+@onready var shoot_sound = $ShootSound
+@onready var empty_shoot_sound = $EmptySound
+@onready var reload_sound = $ReloadSound
+@onready var muzzle = $MuzzleFlash
 
 var shooting
 
@@ -32,7 +35,7 @@ func _ready():
 func shoot():
 	if current_ammo !=0 and attack_cooldown.is_stopped() and Bullet != null and !animation.is_playing():
 		shooting = true
-		var bullet_instance = Bullet.instance()
+		var bullet_instance = Bullet.instantiate()
 		var direction = (end_of_gun.global_position - global_position).normalized()
 		GlobalSignals.emit_signal("bullet_fired", bullet_instance, end_of_gun.global_position, direction, bullet_speed)
 		attack_cooldown.start()

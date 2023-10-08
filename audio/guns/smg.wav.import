@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/smg.wav-6a902214d6a9c583b77927e54164126c.sample"
+type="AudioStreamWAV"
+uid="uid://bnafs7nyio0i1"
+path="res://.godot/imported/smg.wav-6a902214d6a9c583b77927e54164126c.sample"
 
 [deps]
 
 source_file="res://audio/guns/smg.wav"
-dest_files=[ "res://.import/smg.wav-6a902214d6a9c583b77927e54164126c.sample" ]
+dest_files=["res://.godot/imported/smg.wav-6a902214d6a9c583b77927e54164126c.sample"]
 
 [params]
 
@@ -17,5 +18,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false
 edit/normalize=false
-edit/loop=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
 compress/mode=0

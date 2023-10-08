@@ -3,8 +3,8 @@ class_name WeaponManager
 
 signal weapon_changed (current_weapon)
 
-onready var current_weapon: Weapon = $Pistol
-onready var sound = $ChangeSound
+@onready var current_weapon: Weapon = $Pistol
+@onready var sound = $ChangeSound
 var weapons: Array = []
 
 

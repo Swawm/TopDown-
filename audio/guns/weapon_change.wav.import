@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/weapon_change.wav-8277952011fe1ef05f73a4c12d2b2e95.sample"
+type="AudioStreamWAV"
+uid="uid://dntjth01go1ch"
+path="res://.godot/imported/weapon_change.wav-8277952011fe1ef05f73a4c12d2b2e95.sample"
 
 [deps]
 
 source_file="res://audio/guns/weapon_change.wav"
-dest_files=[ "res://.import/weapon_change.wav-8277952011fe1ef05f73a4c12d2b2e95.sample" ]
+dest_files=["res://.godot/imported/weapon_change.wav-8277952011fe1ef05f73a4c12d2b2e95.sample"]
 
 [params]
 
@@ -17,5 +18,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false
 edit/normalize=false
-edit/loop=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
 compress/mode=0
